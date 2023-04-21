@@ -1,6 +1,5 @@
 {
     "name": "document-model-editors",
-    "private": true,
     "version": "0.0.0",
     "type": "module",
     "types": "dist/index.d.ts",

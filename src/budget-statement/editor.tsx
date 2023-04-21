@@ -266,7 +266,14 @@ const Editor: React.FC<IProps> = ({
     onDeleteAccount,
     onDeleteLineItem,
 }) => {
-    const [state, dispatch] = useBudgetStatementReducer(budgetStatement);
+    const [state, dispatch, reset] = useBudgetStatementReducer(budgetStatement);
+
+    useEffect(() => {
+        if (budgetStatement) {
+            reset(budgetStatement);
+        }
+    }, [budgetStatement]);
+
     const accounts = state.data.accounts;
 
     function addAccount(account: AccountInput) {

@@ -47,9 +47,9 @@ const meta = {
     title: "BudgetStatement",
     component: Editor,
     args: {
-        budgetStatement: utils.createBudgetStatement({
+        budgetStatement: {
             data: { accounts: [initialAccount] },
-        }),
+        },
     },
 } satisfies Meta<typeof Editor>;
 
