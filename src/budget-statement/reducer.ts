@@ -12,14 +12,17 @@ type InitialState = Partial<
     }
 >;
 type Action = Parameters<typeof BudgetStatementReducer>[1];
-type ResetAction = { type: "_REACT_RESET"; input: InitialState };
+type ResetAction = {
+    type: "_REACT_RESET";
+    input: Parameters<typeof BudgetStatementReducer>[0];
+};
 
 const reducer = (
     state: Parameters<typeof BudgetStatementReducer>[0],
     action: Action | ResetAction
 ): ReturnType<typeof BudgetStatementReducer> => {
     if (action.type === "_REACT_RESET") {
-        return utils.createBudgetStatement(action.input);
+        return action.input;
     }
     return BudgetStatementReducer(state, action);
 };
@@ -29,14 +32,14 @@ export default function useBudgetStatementReducer(
 ) {
     const [state, dispatch] = useReducer(
         reducer,
-        initialState as any,
+        initialState,
         utils.createBudgetStatement
     );
 
     return [
         state,
         (action: Action) => dispatch(action),
-        (budgetStatement: InitialState) =>
+        (budgetStatement: Parameters<typeof BudgetStatementReducer>[0]) =>
             dispatch({ type: "_REACT_RESET", input: budgetStatement }),
     ] as const;
 }

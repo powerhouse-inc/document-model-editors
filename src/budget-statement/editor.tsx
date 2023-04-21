@@ -251,7 +251,7 @@ const LineItemForm: React.FC<{
 };
 
 interface IProps {
-    budgetStatement: Parameters<typeof useBudgetStatementReducer>[0];
+    budgetStatement: BudgetStatementDocument;
     onChange?: (budgetStatement: BudgetStatementDocument) => void;
     onDeleteAccount?: (account: string) => void;
     onDeleteLineItem?: (
