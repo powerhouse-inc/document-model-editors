@@ -1,0 +1,28 @@
+{
+    "env": {
+        "browser": true,
+        "es2016": true,
+        "jest": true,
+        "jest/globals": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:jest/recommended",
+        "prettier",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": ["./tsconfig.spec.json"]
+    },
+    "plugins": ["@typescript-eslint", "jest"],
+    "rules": {
+        "@typescript-eslint/no-unused-vars": [
+            1,
+            { "ignoreRestSiblings": true }
+        ],
+        "@typescript-eslint/ban-ts-comment": "warn"
+    }
+}
