@@ -3,7 +3,6 @@
         "target": "ESNext",
         "useDefineForClassFields": true,
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
-        "allowJs": false,
         "allowSyntheticDefaultImports": true,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
@@ -18,11 +17,17 @@
         "esModuleInterop": true,
         "declarationMap": true,
         "baseUrl": ".",
+        "rootDir": "src",
         "paths": {
             "document-model-editors": ["src/index.ts"]
         },
         "typeRoots": ["node_modules/@types", "src/index.d.ts"]
     },
-    "include": ["src"],
+    "include": [
+        "src/index.ts",
+        "src/document/**/*.ts",
+        "src/budget-statement/**/*.ts"
+    ],
+    "exclude": [],
     "references": [{ "path": "./tsconfig.node.json" }]
 }
