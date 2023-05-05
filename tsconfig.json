@@ -18,7 +18,6 @@
         "declarationMap": true,
         "baseUrl": ".",
         "rootDir": "src",
-        "declarationDir": "./dist/types",
         "paths": {
             "document-model-editors": ["src/index.ts"]
         },
