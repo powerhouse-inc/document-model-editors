@@ -5,3 +5,5 @@ export type EditorContext = {
 export type EditorProps = {
     editorContext: EditorContext;
 };
+
+export { useDocumentReducer } from './reducer';

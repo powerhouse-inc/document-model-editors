@@ -1,45 +1,54 @@
 import {
-    BudgetStatementDocument,
-    reducer as BudgetStatementReducer,
-    State,
-    utils,
-} from "@acaldas/document-model-libs/browser/budget-statement";
-import { useReducer } from "react";
+    Action,
+    Document,
+    Reducer,
+} from '@acaldas/document-model-libs/document';
+import { useReducer } from 'react';
 
-type InitialState = Partial<
-    Omit<BudgetStatementDocument, "data"> & {
-        data: Partial<State>;
-    }
->;
-type Action = Parameters<typeof BudgetStatementReducer>[1];
-type ResetAction = {
-    type: "_REACT_RESET";
-    input: Parameters<typeof BudgetStatementReducer>[0];
+type ResetAction<T> = {
+    type: '_REACT_RESET';
+    input: T;
 };
 
-const reducer = (
-    state: Parameters<typeof BudgetStatementReducer>[0],
-    action: Action | ResetAction
-): ReturnType<typeof BudgetStatementReducer> => {
-    if (action.type === "_REACT_RESET") {
-        return action.input;
-    }
-    return BudgetStatementReducer(state, action);
+const wrapReducer = <State, A extends Action>(reducer: Reducer<State, A>) => {
+    return (
+        state: Document<State, A>,
+        action: A | ResetAction<Document<State, A>>
+    ) => {
+        if (action.type === '_REACT_RESET') {
+            return action.input as Document<State, A>;
+        }
+        return reducer(state, action as A);
+    };
 };
 
-export default function useBudgetStatementReducer(
-    initialState: InitialState = {}
+export function useDocumentReducer<State, A extends Action>(
+    reducer: Reducer<State, A>,
+    initialState: Partial<
+        Omit<Document<State, A>, 'data'> & {
+            data: Partial<State>;
+        }
+    >,
+    initializer: (
+        initialState?:
+            | Partial<
+                  Omit<Document<State, A>, 'data'> & {
+                      data: Partial<State>;
+                  }
+              >
+            | undefined
+    ) => Document<State, A>
 ) {
     const [state, dispatch] = useReducer(
-        reducer,
+        wrapReducer(reducer),
         initialState,
-        utils.createBudgetStatement
+        initializer
     );
 
     return [
         state,
-        (action: Action) => dispatch(action),
-        (budgetStatement: Parameters<typeof BudgetStatementReducer>[0]) =>
-            dispatch({ type: "_REACT_RESET", input: budgetStatement }),
+        (action: A | ResetAction<Document<State, A>>) => dispatch(action),
+        (state: Document<State, A>) =>
+            dispatch({ type: '_REACT_RESET', input: state }),
     ] as const;
 }
