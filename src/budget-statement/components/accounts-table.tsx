@@ -2,7 +2,7 @@ import type {
     LineItem,
     State,
 } from '@acaldas/document-model-libs/browser/budget-statement';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 const Currency = new Intl.NumberFormat('en-US', {
     style: 'currency',

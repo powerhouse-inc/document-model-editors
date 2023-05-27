@@ -2,7 +2,6 @@ import type {
     Account,
     AccountInput,
 } from '@acaldas/document-model-libs/browser/budget-statement';
-import React from 'react';
 
 const AccountForm: React.FC<{
     accounts: Account[];

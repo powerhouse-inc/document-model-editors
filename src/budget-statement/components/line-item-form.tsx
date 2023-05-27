@@ -2,7 +2,7 @@ import type {
     Account,
     LineItem,
 } from '@acaldas/document-model-libs/browser/budget-statement';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const categories = [
     {

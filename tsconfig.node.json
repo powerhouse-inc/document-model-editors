@@ -4,7 +4,8 @@
         "module": "ESNext",
         "moduleResolution": "Node",
         "allowSyntheticDefaultImports": true,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "jsx": "react-jsx"
     },
-    "include": ["vite.config.ts", "package.json"]
+    "include": ["vite.config.ts", "package.json", ".storybook"]
 }

@@ -1,7 +1,7 @@
-type EditorContext = {
+export type EditorContext = {
     theme: 'light' | 'dark';
 };
 
-type EditorProps = {
+export type EditorProps = {
     editorContext: EditorContext;
 };

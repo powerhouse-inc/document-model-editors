@@ -5,12 +5,13 @@ import {
     LineItem,
 } from '@acaldas/document-model-libs/browser/budget-statement';
 import { useEffect } from 'react';
+import type { EditorProps } from '../base';
 import AccountForm from './components/account-form';
 import AccountsTable from './components/accounts-table';
 import LineItemForm from './components/line-item-form';
 import useBudgetStatementReducer from './reducer';
 
-interface IProps {
+interface IProps extends EditorProps {
     budgetStatement: BudgetStatementDocument;
     onChange?: (budgetStatement: BudgetStatementDocument) => void;
     onDeleteAccount?: (account: string) => void;
@@ -28,11 +29,17 @@ const Editor: React.FC<IProps> = ({
 }) => {
     const [state, dispatch, reset] = useBudgetStatementReducer(budgetStatement);
 
+    // resets the budget state in the reducer when the prop changes
     useEffect(() => {
         if (budgetStatement) {
             reset(budgetStatement);
         }
     }, [budgetStatement]);
+
+    // notifies the parent component when the budget statement changes
+    useEffect(() => {
+        onChange?.(state);
+    }, [onChange, state]);
 
     const accounts = state.data.accounts;
 
@@ -51,10 +58,6 @@ const Editor: React.FC<IProps> = ({
         dispatch(actions.deleteAccount([account]));
         onDeleteAccount?.(account);
     }
-
-    useEffect(() => {
-        onChange?.(state);
-    }, [onChange, state]);
 
     return (
         <div>
