@@ -41,8 +41,6 @@ const Editor: React.FC<IProps> = ({
         onChange?.(state);
     }, [onChange, state]);
 
-    const accounts = state.data.accounts;
-
     function addAccount(account: AccountInput) {
         dispatch(actions.addAccount([account]));
     }
@@ -58,6 +56,8 @@ const Editor: React.FC<IProps> = ({
         dispatch(actions.deleteAccount([account]));
         onDeleteAccount?.(account);
     }
+
+    const accounts = state.data.accounts;
 
     return (
         <div>
