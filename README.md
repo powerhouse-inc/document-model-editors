@@ -13,19 +13,20 @@ Install the library:
 
 ## Editors
 
-A Document Model Editor is a React (controlled component)[https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components] that allows an user to edit a Document Model instance, respecting the predefined business logic.
+A Document Model Editor is a React [controlled component](https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components) that allows an user to edit a Document Model instance, respecting the predefined business logic.
 
 ## Storybook
 
 Each Editor has a self contained story to ease development and testing.
-To use the storybook run `yarn storybook`.
+To use the storybook run
+- `yarn storybook`
 
 The stories have a `Operations` addon that will list all the operations performed on the document model instance.
-The controls also allow changing the document directly and the edictor theme from ´light´ to ´dark´.
+The controls also allow changing the document directly and the edictor theme from `light` to `dark`.
 
 ### Budget Statement
 
-A dummy implementation of a Budget Statement UI can be found at [src/budget-statement/editor.tsx]. It makes use of the hook (useBudgetStatementReducer)[src/budget-statement/reducer.ts] to dispatch actions and apply changes to the budget statement.
+A dummy implementation of a Budget Statement UI can be found at [src/budget-statement/editor.tsx](src/budget-statement/editor.tsx). It makes use of the hook [useBudgetStatementReducer](src/budget-statement/reducer.ts) to dispatch actions and apply changes to the budget statement.
 
 The available actions can be seen at https://acaldas.github.io/document-model-libs/modules/BudgetStatement.actions.html.
 
