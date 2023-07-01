@@ -8,6 +8,7 @@ interface TextInputProps {
     value?: string,
     placeholder?: string,
     autoFocus?: boolean,
+    clearOnSubmit?: boolean,
     onSubmit?: {(value:string):void},
     onEmpty?: {(id: string):void},
 }
@@ -31,7 +32,13 @@ function TextInput(props: TextInputProps) {
             if (e.target && props.onSubmit) {
                 props.onSubmit((e.target as HTMLInputElement).value);
             }
-            setState({...state, value: "", pressingEnter: false});
+            
+            if (props.clearOnSubmit) {
+                setState({...state, value: "", pressingEnter: false});
+            } else {
+                setState({...state, pressingEnter: false});
+            }
+
             e.preventDefault();
         }
 

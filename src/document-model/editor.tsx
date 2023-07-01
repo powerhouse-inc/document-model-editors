@@ -61,6 +61,7 @@ function Editor(props: EditorProps) {
                 placeholder="Document Model Name" 
                 autoFocus={true}
                 onSubmit={createEntry}
+                clearOnSubmit={true}
                 size="larger"
                 />
         </div>
