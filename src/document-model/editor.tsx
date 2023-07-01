@@ -52,6 +52,7 @@ function Editor(props: EditorProps) {
                     autoFocus={false} 
                     value={entry.value}
                     onEmpty={deleteEntry}
+                    size="larger"
                 />)
             }
             <TextInput 
@@ -60,6 +61,7 @@ function Editor(props: EditorProps) {
                 placeholder="Document Model Name" 
                 autoFocus={true}
                 onSubmit={createEntry}
+                size="larger"
                 />
         </div>
     );
