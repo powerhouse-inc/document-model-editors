@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState, KeyboardEvent } from "react";
-import { inputStyle } from "../styles";
+import { TypographySize, inputStyle, typographySizes } from "../styles";
 
 interface TextInputProps {
     theme: 'light' | 'dark',
+    size?: TypographySize
     id?: string,
     value?: string,
     placeholder?: string,
@@ -71,6 +72,11 @@ function TextInput(props: TextInputProps) {
         }
     });
 
+    const style = {
+        ...inputStyle(props.theme, state.hasFocus),
+        ...typographySizes[props.size || 'small'],
+    }
+
     return <textarea 
         ref={ref}
         placeholder={props.placeholder || ''}
@@ -78,7 +84,7 @@ function TextInput(props: TextInputProps) {
         onInput={onInput}
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
-        style={inputStyle(props.theme, state.hasFocus)}
+        style={style}
         value={state.value}
         onFocus={e => setFocus(true)}
         onBlur={e => setFocus(false)}

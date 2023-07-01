@@ -19,7 +19,55 @@ const colorScheme = {
         inputColor: "#E6E6E6",
         inputBg: "#222222"
     }
-} 
+}
+
+type TypographySize = 'huge' | 'larger' | 'large' | 'medium' | 'small' | 'smaller' | 'tiny';
+type TypographyScheme = {[K in TypographySize]:CSSProperties};
+
+const typographySizes: TypographyScheme = {
+    huge: {
+        fontSize: "36pt",
+        fontWeight: "bold",
+        padding: "6pt",
+        margin: "30pt 0 0 0"
+    },
+    larger: {
+        fontSize: "24pt",
+        fontWeight: "bold",
+        padding: "6pt",
+        margin: "18pt 0 0 0"
+    },
+    large: {
+        fontSize: "18pt",
+        fontWeight: "bold",
+        padding: "6pt",
+        margin: "12pt 0 0 0"
+    },
+    medium: {
+        fontSize: "11pt",
+        fontWeight: "bold",
+        padding: "6pt",
+        margin: "5pt 0 0 0"
+    },
+    small: {
+        fontSize: "10pt",
+        fontWeight: "normal",
+        padding: "6pt",
+        margin: "0"
+    },
+    smaller: {
+        fontSize: "9pt",
+        fontWeight: "normal",
+        padding: "6pt",
+        margin: "0"
+    },
+    tiny: {
+        fontSize: "8pt",
+        fontWeight: "normal",
+        padding: "6pt",
+        margin: "0"
+    }
+}
 
 const inputStyle = (mode='light', focus=false) => {
     const scheme = colorScheme[mode];
@@ -27,14 +75,10 @@ const inputStyle = (mode='light', focus=false) => {
     return {
         width: "100%",
         border: "none",
-        padding: "0.5em",
         boxSizing: "border-box",
         backgroundColor: focus ? scheme.inputBg : scheme.bgColor,
         outline: "none",
-        fontSize: "18pt",
-        fontWeight: "bold",
         color: scheme.inputColor,
-        margin: "0.5em 0",
         resize: "none",
         fontFamily: "Roboto, sans-serif",
         overflow: "hidden",
@@ -42,4 +86,4 @@ const inputStyle = (mode='light', focus=false) => {
     } satisfies CSSProperties
 };
 
-export { ColorTheme, colorScheme, inputStyle };
+export { ColorTheme, colorScheme, inputStyle, TypographyScheme, TypographySize, typographySizes };
