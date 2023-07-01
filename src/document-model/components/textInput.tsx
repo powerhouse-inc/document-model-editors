@@ -1,0 +1,88 @@
+import React, { useEffect, useRef, useState, KeyboardEvent } from "react";
+import { inputStyle } from "../styles";
+
+interface TextInputProps {
+    theme: 'light' | 'dark',
+    id?: string,
+    value?: string,
+    placeholder?: string,
+    autoFocus?: boolean,
+    onSubmit?: {(value:string):void},
+    onEmpty?: {(id: string):void},
+}
+
+function TextInput(props: TextInputProps) {
+    const [state, setState] = useState({
+        value: props.value || "",
+        hasFocus: false,
+        pressingEnter: false
+    });
+
+    const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter') {
+            setState({...state, pressingEnter: true});
+            e.preventDefault();
+        }
+    }
+
+    const onKeyUp = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter') {
+            if (e.target && props.onSubmit) {
+                props.onSubmit((e.target as HTMLInputElement).value);
+            }
+            setState({...state, value: "", pressingEnter: false});
+            e.preventDefault();
+        }
+
+        if (e.key === 'Backspace' || e.key === 'Delete') {
+            if (props.onEmpty && (e.target as HTMLInputElement).value.length < 1) {
+                props.onEmpty(props.id || '');
+            }
+            e.preventDefault();
+        }
+    }
+    
+    const onInput = (e) => {
+        if (!state.pressingEnter) {
+            setState({...state, value: e.target.value});
+            e.target.style.height = "1px";
+            e.target.style.height = (e.target.scrollHeight)+"px";
+        }
+    }
+
+    const setFocus = (f) => {
+        setState({...state, hasFocus: f});
+    }
+    
+    const ref = useRef<HTMLTextAreaElement>(null);
+    useEffect(() => {
+        const resizeTextArea = () => {
+            if (ref.current) {
+                ref.current.style.height = "1px";
+                ref.current.style.height = ref.current.scrollHeight + "px";
+            }
+        }
+        
+        window.addEventListener('resize', resizeTextArea);
+        resizeTextArea();
+
+        return () => {
+            window.removeEventListener('resize', resizeTextArea);
+        }
+    });
+
+    return <textarea 
+        ref={ref}
+        placeholder={props.placeholder || ''}
+        autoFocus={props.autoFocus || false}
+        onInput={onInput}
+        onKeyDown={onKeyDown}
+        onKeyUp={onKeyUp}
+        style={inputStyle(props.theme, state.hasFocus)}
+        value={state.value}
+        onFocus={e => setFocus(true)}
+        onBlur={e => setFocus(false)}
+    ></textarea>
+}
+
+export default TextInput;
