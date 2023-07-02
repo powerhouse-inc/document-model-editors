@@ -36,16 +36,19 @@ const groups = [
         ref: 'makerdao/project',
         id: 'Powerhouse',
         title: 'Powerhouse',
+        color: 'purple'
     },
     {
         ref: 'makerdao/project',
         id: 'LegalResearch',
         title: 'Legal Research',
+        color: 'red'
     },
     {
         ref: 'makerdao/project',
         id: 'MakerAcademy',
         title: 'Maker Academy',
+        color: 'teal'
     },
 ];
 
