@@ -8,6 +8,10 @@ const meta = {
         mode: {
             options: ['light', 'dark'],
             control: { type: 'radio' }
+        },
+        debug: {
+            name: 'show state',
+            control: {type: 'boolean'}
         }
     },
     args: {
