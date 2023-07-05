@@ -4,13 +4,14 @@ import { TypographySize, inputStyle, typographySizes } from "../styles";
 interface TextInputProps {
     theme: 'light' | 'dark',
     size?: TypographySize
+    horizontalLine?: boolean,
     id?: string,
     value?: string,
     placeholder?: string,
     autoFocus?: boolean,
     clearOnSubmit?: boolean,
     onSubmit?: {(value:string):void},
-    onEmpty?: {(id: string):void},
+    onEmpty?: {(id: string):void}
 }
 
 function TextInput(props: TextInputProps) {
@@ -19,6 +20,10 @@ function TextInput(props: TextInputProps) {
         hasFocus: false,
         pressingEnter: false
     });
+
+    useEffect(() => {
+        setState({...state, value: props.value || ""});
+    }, [props])
 
     const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter') {
@@ -60,6 +65,16 @@ function TextInput(props: TextInputProps) {
 
     const setFocus = (f) => {
         setState({...state, hasFocus: f});
+
+        if (!f) {
+            const newValue = ref.current?.value || '';
+            const origValue = props.value || '';
+            
+            if (newValue != origValue && props.onSubmit) {
+                console.log(newValue, origValue);
+                props.onSubmit(newValue);
+            }
+        }
     }
     
     const ref = useRef<HTMLTextAreaElement>(null);
@@ -84,18 +99,24 @@ function TextInput(props: TextInputProps) {
         ...typographySizes[props.size || 'small'],
     }
 
-    return <textarea 
-        ref={ref}
-        placeholder={props.placeholder || ''}
-        autoFocus={props.autoFocus || false}
-        onInput={onInput}
-        onKeyDown={onKeyDown}
-        onKeyUp={onKeyUp}
-        style={style}
-        value={state.value}
-        onFocus={e => setFocus(true)}
-        onBlur={e => setFocus(false)}
-    ></textarea>
+    return <div>
+        {
+            props.horizontalLine ? <hr key='line' style={{borderColor: inputStyle(props.theme, false).backgroundColor}}/> : ''
+        }
+        <textarea 
+            key='text'
+            ref={ref}
+            placeholder={props.placeholder || ''}
+            autoFocus={props.autoFocus || false}
+            onInput={onInput}
+            onKeyDown={onKeyDown}
+            onKeyUp={onKeyUp}
+            style={style}
+            value={state.value}
+            onFocus={e => setFocus(true)}
+            onBlur={e => setFocus(false)}
+        ></textarea>
+    </div>;
 }
 
 export default TextInput;
