@@ -1,11 +1,9 @@
-import {
-    BudgetStatementDocument,
-    utils,
-} from '@acaldas/document-model-libs/browser/budget-statement';
+import { utils } from '@acaldas/document-model-libs/browser/budget-statement';
 import { useArgs, useChannel } from '@storybook/preview-api';
 import { Meta, StoryObj } from '@storybook/react';
-import { useMemo } from 'react';
+import { useEffect } from 'react';
 import Editor, { IProps } from '../budget-statement/editor';
+import useBudgetStatementReducer from '../budget-statement/reducer';
 
 const initialAccount = utils.createAccount({
     address: 'eth:0xb5eB779cE300024EDB3dF9b6C007E312584f6F4f',
@@ -58,14 +56,20 @@ const meta = {
     render: () => {
         const [args, setArgs] = useArgs<IProps>();
         const emit = useChannel({});
-        const handleChange = useMemo(
-            () => (budgetStatement: BudgetStatementDocument) => {
-                args.onChange?.(budgetStatement);
-                setArgs({ budgetStatement });
-                emit('BUDGET_STATEMENT', budgetStatement);
-            },
-            []
+
+        const [state, dispatch, reset] = useBudgetStatementReducer(
+            args.budgetStatement
         );
+
+        //  resets the budget state in the reducer when the prop changes
+        useEffect(() => {
+            if (state) {
+                reset(state);
+                setArgs({ budgetStatement: state });
+                emit('BUDGET_STATEMENT', state);
+            }
+        }, [state]);
+
         const darkTheme = args.editorContext.theme === 'dark';
         return (
             <div
@@ -76,7 +80,7 @@ const meta = {
                     backgroundColor: darkTheme ? '#1A1D1F' : 'white',
                 }}
             >
-                <Editor {...args} onChange={handleChange} />
+                <Editor {...args} dispatch={dispatch} />
             </div>
         );
     },
@@ -84,7 +88,7 @@ const meta = {
         budgetStatement: {
             control: 'object',
         },
-        onChange: {
+        dispatch: {
             table: {
                 disable: true,
             },

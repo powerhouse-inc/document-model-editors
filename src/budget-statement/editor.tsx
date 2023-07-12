@@ -1,46 +1,21 @@
 import {
     AccountInput,
     actions,
+    BudgetStatementAction,
     BudgetStatementDocument,
     LineItem,
 } from '@acaldas/document-model-libs/browser/budget-statement';
-import { useEffect } from 'react';
 import type { EditorProps } from '../base';
 import AccountForm from './components/account-form';
 import AccountsTable from './components/accounts-table';
 import LineItemForm from './components/line-item-form';
-import useBudgetStatementReducer from './reducer';
 
 interface IProps extends EditorProps {
     budgetStatement: BudgetStatementDocument;
-    onChange?: (budgetStatement: BudgetStatementDocument) => void;
-    onDeleteAccount?: (account: string) => void;
-    onDeleteLineItem?: (
-        account: string,
-        lineItem: Pick<LineItem, 'category' | 'group'>
-    ) => void;
+    dispatch: (action: BudgetStatementAction) => void;
 }
 
-const Editor: React.FC<IProps> = ({
-    budgetStatement,
-    onChange,
-    onDeleteAccount,
-    onDeleteLineItem,
-}) => {
-    const [state, dispatch, reset] = useBudgetStatementReducer(budgetStatement);
-
-    // resets the budget state in the reducer when the prop changes
-    useEffect(() => {
-        if (budgetStatement) {
-            reset(budgetStatement);
-        }
-    }, [budgetStatement]);
-
-    // notifies the parent component when the budget statement changes
-    useEffect(() => {
-        onChange?.(state);
-    }, [onChange, state]);
-
+const Editor: React.FC<IProps> = ({ budgetStatement, dispatch }) => {
     function addAccount(account: AccountInput) {
         dispatch(actions.addAccount([account]));
     }
@@ -54,17 +29,23 @@ const Editor: React.FC<IProps> = ({
 
     function deleteAccount(account: string) {
         dispatch(actions.deleteAccount([account]));
-        onDeleteAccount?.(account);
     }
 
-    const accounts = state.data.accounts;
+    function deleteLineItem(
+        account: string,
+        lineItem: { category?: string; group?: string }
+    ) {
+        dispatch(actions.deleteLineItem(account, [lineItem]));
+    }
+
+    const accounts = budgetStatement.data.accounts;
 
     return (
         <div>
             <AccountsTable
-                data={state.data}
+                data={budgetStatement.data}
                 onDeleteAccount={deleteAccount}
-                onDeleteLineItem={onDeleteLineItem}
+                onDeleteLineItem={deleteLineItem}
             />
             <hr />
             <div>
