@@ -1,7 +1,4 @@
-import type {
-    LineItem,
-    State,
-} from '@acaldas/document-model-libs/browser/budget-statement';
+import type { State } from '@acaldas/document-model-libs/browser/budget-statement';
 import { useMemo } from 'react';
 
 const Currency = new Intl.NumberFormat('en-US', {
@@ -14,7 +11,7 @@ const AccountsTable: React.FC<{
     onDeleteAccount?: (account: string) => void;
     onDeleteLineItem?: (
         account: string,
-        lineItem: Pick<LineItem, 'category' | 'group'>
+        lineItem: { category?: string; group?: string }
     ) => void;
 }> = ({ data, onDeleteAccount, onDeleteLineItem }) => {
     const accounts = data.accounts;
