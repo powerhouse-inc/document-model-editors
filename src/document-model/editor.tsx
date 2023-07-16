@@ -1,6 +1,6 @@
 import React, { CSSProperties, useEffect } from "react";
-import TextInput from "./components/textInput";
-import { ColorTheme, colorScheme, typographySizes } from "./styles";
+import TextInput from "../common/textInput";
+import { ColorTheme, colorScheme, typographySizes } from "../common/styles";
 import useDocumentModelReducer from "./reducer";
 import { actions } from '@acaldas/document-model-libs/browser/document-model';
 
@@ -87,7 +87,7 @@ function Editor(props: EditorProps) {
 
     return (
         <>
-            <div style={style}>
+            <div style={{...style, minHeight: '70em'}}>
                 <TextInput 
                     key="modelName"
                     theme={theme} 

@@ -1,0 +1,74 @@
+.document-editor {
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    background-color: #aaa;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 11pt;
+}
+
+.editor-toolbar {
+    position: relative;
+    display: block;
+    height: 36px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid #aaa;
+}
+
+.dark-mode .editor-toolbar {
+    background-color: #555;
+    border-bottom: 1px solid #000;
+    color: #eee;
+}
+
+.editor-toolbar--column {
+    width: 25%;
+    height: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    padding: 4px;
+    margin: 0;
+}
+
+.editor-toolbar--left {
+    text-align: left;
+}
+
+.editor-toolbar--center {
+    width: 50%;
+    text-align: center;
+}
+
+.editor-toolbar--right {
+    text-align: right;
+}
+
+.toolbar-button {
+    display: inline-block;
+    height: 100%;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    margin: 0 4px 0 0;
+    padding: 2px 6px;
+    cursor: pointer;
+}
+
+.toolbar-button:hover {
+    background-color: #f6f6f6;
+}
+
+.dark-mode .toolbar-button:hover {
+    background-color: #333;
+}
+
