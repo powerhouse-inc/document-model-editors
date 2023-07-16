@@ -5,6 +5,7 @@ import DocumentEditor from "../common/documentEditor";
 import EditorToolbar from "../common/editorToolbar";
 import "../common/styles.css"
 import ToolbarButton from "../common/toolbarButton";
+import EditorWorksheet from "../common/editorWorksheet";
 
 interface EditorProps {
     debug? : boolean,
@@ -30,6 +31,11 @@ function Editor(props: EditorProps) {
                     <ToolbarButton>Button 6</ToolbarButton>
                 ]}
             />
+            <EditorWorksheet>
+                <h1>{state.data.elements[0].name}</h1>
+                <p>{state.data.elements[0].components?.content}</p>
+                {'This is a test... '.repeat(1000)}
+            </EditorWorksheet>
         </DocumentEditor>
     );
 }
