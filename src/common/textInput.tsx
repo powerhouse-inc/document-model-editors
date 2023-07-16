@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, KeyboardEvent } from "react";
-import { TypographySize, inputStyle, typographySizes } from "../styles";
+import { TypographySize, inputStyle, typographySizes } from "./styles";
 
 interface TextInputProps {
     theme: 'light' | 'dark',
