@@ -4,6 +4,8 @@
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+    
     background-color: #aaa;
     margin: 0;
     padding: 0;
@@ -12,8 +14,7 @@
 }
 
 .editor-toolbar {
-    position: relative;
-    display: block;
+    width: 100%;
     height: 36px;
     overflow: hidden;
     margin: 0;
@@ -72,3 +73,27 @@
     background-color: #333;
 }
 
+.editor-worksheet {
+    display: block;
+    height: calc(100% - 36px);
+    overflow-y: auto;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+.editor-worksheet--page {
+    max-width: 48em;
+    min-height: 27em;
+    box-sizing: content-box;
+    border: 1px solid #eee;
+    background-color: white;
+    padding: 6em;
+    margin: 0 auto;
+    box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .editor-worksheet--page {
+    background-color: #555;
+    border: 1px solid #444;
+    color: #eee;
+}
