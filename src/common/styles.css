@@ -82,7 +82,7 @@
 }
 
 .editor-worksheet--page {
-    max-width: 48em;
+    max-width: 60em;
     min-height: 27em;
     box-sizing: content-box;
     border: 1px solid #eee;
@@ -92,8 +92,21 @@
     box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.4);
 }
 
+.editor-worksheet--page h1 {
+    font-weight: 400;
+    font-size: 28pt;
+    margin: 0;
+    padding: 0;
+}
+
+.editor-worksheet--page p {
+    font-style: italic;
+    margin: 0.25em 0 5em 0;
+    padding: 0;
+}
+
 .dark-mode .editor-worksheet--page {
-    background-color: #555;
+    background-color: rgb(24,24,24);
     border: 1px solid #444;
     color: #eee;
 }

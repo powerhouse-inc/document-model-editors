@@ -4,8 +4,10 @@ import { actions } from '@acaldas/document-model-libs/browser/scope-framework';
 import DocumentEditor from "../common/documentEditor";
 import EditorToolbar from "../common/editorToolbar";
 import "../common/styles.css"
+import "./style.css";
 import ToolbarButton from "../common/toolbarButton";
 import EditorWorksheet from "../common/editorWorksheet";
+import AtlasElement from "./components/atlasElement";
 
 interface EditorProps {
     debug? : boolean,
@@ -18,23 +20,35 @@ function Editor(props: EditorProps) {
     return (
         <DocumentEditor mode={props.mode}>
             <EditorToolbar
+                key="toolbar"
                 left={[
-                    <ToolbarButton>Button 1</ToolbarButton>,
-                    <ToolbarButton>Button 2</ToolbarButton>
+                    <ToolbarButton>table of contents</ToolbarButton>,
+                    <ToolbarButton>edit mode</ToolbarButton>
                 ]}
-                center={[
-                    <ToolbarButton>Button 3</ToolbarButton>,
-                    <ToolbarButton>Button 4</ToolbarButton>
-                ]}
+                center={[]}
                 right={[
-                    <ToolbarButton>Button 5</ToolbarButton>,
-                    <ToolbarButton>Button 6</ToolbarButton>
+                    <ToolbarButton>revision history</ToolbarButton>
                 ]}
             />
-            <EditorWorksheet>
-                <h1>{state.data.elements[0].name}</h1>
-                <p>{state.data.elements[0].components?.content}</p>
-                {'This is a test... '.repeat(1000)}
+            <EditorWorksheet key="sheet">
+                <h1 key="title">MakerDAO Atlas</h1>
+                <p key="lastModified">Last Modified: {state.lastModified.toString().slice(0, 16).replace('T', ' ')} UTC</p>
+                {state.data.elements.map(d => <AtlasElement key={d.id} element={d}/>)}
+                { props.debug ?
+                    <code 
+                        key='stateView' 
+                        style={{
+                            maxWidth: '60em', 
+                            margin: '4em auto', 
+                            padding: '2em 0',
+                            display: 'block', 
+                            whiteSpace: 'pre-wrap',
+                            fontFamily: 'monospace',
+                            lineHeight: '1.7',
+                            borderTop: '1px solid #aaa'
+                        }}>{JSON.stringify(state, null, 2)}</code>
+                    : '' 
+                }
             </EditorWorksheet>
         </DocumentEditor>
     );
