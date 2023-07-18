@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, CSSProperties, useEffect } from "react";
 import useScopeFrameworkReducer from "./reducer";
-import { actions } from '@acaldas/document-model-libs/browser/scope-framework';
+import { actions, types } from '@acaldas/document-model-libs/browser/scope-framework';
 import DocumentEditor from "../common/documentEditor";
 import EditorToolbar from "../common/editorToolbar";
 import "../common/styles.css"
@@ -17,23 +17,69 @@ interface EditorProps {
 function Editor(props: EditorProps) {
     const [state, dispatch, reset] = useScopeFrameworkReducer();
 
+    const handleNameUpdate = (id:string, name:string) => dispatch(actions.updateElementName({id, name}));
+    
+    const handleTypeUpdate = (id:string, type: types.ScopeFrameworkElementType) => 
+        dispatch(actions.updateElementType({id, type}));
+    
+    const handleComponentsUpdate = (id:string, components:Record<string, string>) => dispatch(actions.updateElementComponents({
+        id, 
+        components: { content: components['content'] }
+    }));
+    
+    const handleDelete = (id:string) => dispatch(actions.removeElement({id}));
+
+    const handleAddArticle = () => {
+        dispatch(actions.addElement({
+            type: 'Article',
+            path: 'A.1.1',
+            name: null,
+            components: {
+                content: null
+            }
+        }));
+    }
+
+    const handleAddSection = () => {
+        dispatch(actions.addElement({
+            type: 'Section',
+            path: 'A.1.1.1',
+            name: null,
+            components: {
+                content: null
+            }
+        }));
+    }
+
     return (
         <DocumentEditor mode={props.mode}>
             <EditorToolbar
                 key="toolbar"
                 left={[
-                    <ToolbarButton>table of contents</ToolbarButton>,
-                    <ToolbarButton>edit mode</ToolbarButton>
+                    <ToolbarButton key="toc">table of contents</ToolbarButton>,
+                    <ToolbarButton key="undo" onClick={() => dispatch(actions.undo(1))}>undo</ToolbarButton>,
+                    <ToolbarButton key="redo" onClick={() => dispatch(actions.redo(1))}>redo</ToolbarButton>
                 ]}
-                center={[]}
+                center={[
+                    <ToolbarButton key="art" onClick={handleAddArticle}>add article</ToolbarButton>,
+                    <ToolbarButton key="sct" onClick={handleAddSection}>add section</ToolbarButton>
+                ]}
                 right={[
-                    <ToolbarButton>revision history</ToolbarButton>
+                    <ToolbarButton key="rev">revision history</ToolbarButton>
                 ]}
             />
             <EditorWorksheet key="sheet">
                 <h1 key="title">MakerDAO Atlas</h1>
                 <p key="lastModified">Last Modified: {state.lastModified.toString().slice(0, 16).replace('T', ' ')} UTC</p>
-                {state.data.elements.map(d => <AtlasElement key={d.id} element={d}/>)}
+                {state.data.elements.map(d => <AtlasElement 
+                    key={d.id} 
+                    element={d}
+                    onUpdateName={handleNameUpdate}
+                    onUpdateType={handleTypeUpdate}
+                    onUpdateComponents={handleComponentsUpdate}
+                    onDelete={handleDelete}
+                    mode={props.mode}
+                />)}
                 { props.debug ?
                     <code 
                         key='stateView' 
@@ -55,24 +101,3 @@ function Editor(props: EditorProps) {
 }
 
 export default Editor;
-
-/*
-<div style={{minHeight: '4em'}}>
-                Scope Framework Root Path: {state.data.rootPath}
-            </div>
-            { props.debug ?
-                <code 
-                    key='stateView' 
-                    style={{
-                        maxWidth: '60em', 
-                        margin: '4em auto', 
-                        maxHeight: '25em', 
-                        overflowY: 'scroll', 
-                        display: 'block', 
-                        whiteSpace: 'pre-wrap',
-                        fontFamily: 'monospace',
-                        lineHeight: '1.7'
-                    }}>{JSON.stringify(state, null, 2)}</code>
-                : '' 
-            }
-*/

@@ -1,8 +1,8 @@
 .atlas-element {
     display: block;
-    margin: 1em 0;
+    margin: 1rem 0;
     border-top: 1px solid #aaa;
-    padding: 5em 0 0 0;
+    padding: 5rem 0 0 0;
 }
 
 .atlas-element--header-component,
@@ -11,7 +11,7 @@
     display: inline-block;
     vertical-align: top;
     box-sizing: border-box;
-    padding: 0.5em;
+    padding: 0 0.5rem;
 }
 
 .atlas-element--path {
