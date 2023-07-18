@@ -11,7 +11,10 @@ type ResetAction<T> = {
     input: T;
 };
 
-const wrapReducer = <State, A extends Action>(reducer: Reducer<State, A>) => {
+const wrapReducer = <State, A extends Action>(
+    reducer: Reducer<State, A>,
+    onError?: (error: unknown) => void
+) => {
     return (
         state: Document<State, A>,
         action: A | ResetAction<Document<State, A>>
@@ -19,15 +22,24 @@ const wrapReducer = <State, A extends Action>(reducer: Reducer<State, A>) => {
         if (action.type === '_REACT_RESET') {
             return action.input as Document<State, A>;
         }
-        return reducer(state, action as A);
+        try {
+            return reducer(state, action as A);
+        } catch (error) {
+            onError?.(error);
+            return state;
+        }
     };
 };
 
 export function useDocumentReducer<State, A extends Action>(
     reducer: Reducer<State, A | BaseAction>,
-    initialState: Document<State, A | BaseAction>
+    initialState: Document<State, A | BaseAction>,
+    onError?: (error: unknown) => void
 ) {
-    const [state, dispatch] = useReducer(wrapReducer(reducer), initialState);
+    const [state, dispatch] = useReducer(
+        wrapReducer(reducer, onError),
+        initialState
+    );
 
     return [
         state,

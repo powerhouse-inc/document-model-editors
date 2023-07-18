@@ -9,10 +9,12 @@ import {
 import { useDocumentReducer } from '../common';
 
 export default function useScopeFrameworkReducer(
-    initialState: ExtendedScopeFrameworkState = createEmptyExtendedScopeFrameworkState()
+    initialState: ExtendedScopeFrameworkState = createEmptyExtendedScopeFrameworkState(),
+    onError?: (error: unknown) => void
 ) {
     return useDocumentReducer<types.ScopeFrameworkState, ScopeFrameworkAction>(
         reducer,
-        initialState
+        initialState,
+        onError
     );
 }
