@@ -7,7 +7,8 @@ import {
 import { useDocumentReducer } from '../common';
 
 export default function useDocumentModelReducer(
-    initialState: ExtendedDocumentModelState = createEmptyExtendedDocumentModelState()
+    initialState: ExtendedDocumentModelState = createEmptyExtendedDocumentModelState(),
+    onError?: (error: unknown) => void
 ) {
-    return useDocumentReducer(reducer, initialState);
+    return useDocumentReducer(reducer, initialState, onError);
 }

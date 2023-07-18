@@ -58,7 +58,7 @@ function Editor(props: IProps) {
             <EditorToolbar
                 key="toolbar"
                 left={[
-                    <ToolbarButton key="toc">table of contents</ToolbarButton>,
+                    <ToolbarButton key="toc" onClick={() => {dispatch(actions.moveElement({} as any))}}>table of contents</ToolbarButton>,
                     <ToolbarButton key="undo" onClick={() => dispatch(actions.undo(1))}>undo</ToolbarButton>,
                     <ToolbarButton key="redo" onClick={() => dispatch(actions.redo(1))}>redo</ToolbarButton>
                 ]}

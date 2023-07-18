@@ -7,10 +7,11 @@ import {
 import { useDocumentReducer } from '../common';
 
 export default function useBudgetStatementReducer(
-    initialState: BudgetStatementDocument = utils.createBudgetStatement()
+    initialState: BudgetStatementDocument = utils.createBudgetStatement(),
+    onError?: (error: unknown) => void
 ) {
     return useDocumentReducer<
         BudgetStatementDocument['data'],
         BudgetStatementAction
-    >(BudgetStatementReducer, initialState);
+    >(BudgetStatementReducer, initialState, onError);
 }
