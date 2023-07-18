@@ -5,10 +5,6 @@ interface EditorWorksheetProps {
 }
 
 function EditorWorksheet(props: PropsWithChildren<EditorWorksheetProps>) {
-    const handleClick = props.onClick || (()=>{
-        console.log('No onClick handler attached to button.');
-    });
-
     return (
         <div className="editor-worksheet">
             <div className="editor-worksheet--page">

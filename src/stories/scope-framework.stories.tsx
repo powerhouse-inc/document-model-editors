@@ -32,7 +32,7 @@ const meta = {
         return (
             <div
                 style={{
-                    padding: '1em',
+                    padding: '0',
                     height: '100vh',
                     color: darkTheme ? 'white' : 'black',
                     backgroundColor: darkTheme ? '#1A1D1F' : 'white',

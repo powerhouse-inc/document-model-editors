@@ -12,16 +12,17 @@ const colorScheme = {
         inputBg: '#F6F6F6',
     },
     dark: {
-        color: '#E6E6E6',
-        bgColor: '#181818',
+        color: '#CCCCCC',
+        bgColor: '#0A0A0A',
         border: '#181818',
-        shadow: 'rgba(0, 0, 0, 0.25)',
-        inputColor: '#E6E6E6',
-        inputBg: '#222222',
+        shadow: 'rgba(255, 255, 255, 0.25)',
+        inputColor: '#CCCCCC',
+        inputBg: '#1A1D1F',
     },
 };
 
 type TypographySize =
+    | 'chapter'
     | 'huge'
     | 'larger'
     | 'large'
@@ -32,11 +33,21 @@ type TypographySize =
 type TypographyScheme = { [K in TypographySize]: CSSProperties };
 
 const typographySizes: TypographyScheme = {
-    huge: {
-        fontSize: '36pt',
+    chapter: {
+        fontSize: '64pt',
         fontWeight: 'bold',
+        padding: '6pt 24pt',
+        margin: '0',
+        lineHeight: 1,
+        textAlign: 'right',
+        borderLeft: '4px solid'
+    },
+    huge: {
+        fontSize: '32pt',
+        fontWeight: 'normal',
         padding: '6pt',
-        margin: '-15pt 0 0 0',
+        margin: '0 0 0 -6pt',
+        lineHeight: 1
     },
     larger: {
         fontSize: '24pt',

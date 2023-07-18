@@ -108,14 +108,15 @@ function TextInput(props: TextInputProps) {
         style.textAlign = 'center';
         style.textTransform = 'uppercase';
         style.backgroundColor = 'rgba(0, 0, 255, 0.05)';
-        style.borderRadius = '10px';
-        style.padding = '2px';
+        style.borderRadius = '8px';
+        style.padding = '1px 0 4px 0';
         style.margin = '0';
         style.fontWeight = 'bold';
-        style.fontSize = 'smaller';
-        style.color = 'rgba(64, 64, 192)';
-        style.border = '1px solid rgba(64, 64, 192)';
+        style.fontSize = '8pt';
+        style.color = '#518EBE';
+        style.border = '2px solid #518EBE';
         style.cursor = 'pointer';
+        style.lineHeight = '1.5';
     }
 
     return (
@@ -143,6 +144,8 @@ function TextInput(props: TextInputProps) {
                 value={state.value}
                 onFocus={e => setFocus(true)}
                 onBlur={e => setFocus(false)}
+                tabIndex={props.labelStyle ? -1 : 1}
+                spellCheck={state.hasFocus}
             ></textarea>
         </div>
     );
