@@ -5,12 +5,12 @@ import {
     BudgetStatementDocument,
     LineItem,
 } from '@acaldas/document-model-libs/browser/budget-statement';
-import type { EditorProps } from '../base';
+import type { EditorProps } from '../common';
 import AccountForm from './components/account-form';
 import AccountsTable from './components/accounts-table';
 import LineItemForm from './components/line-item-form';
 
-interface IProps extends EditorProps {
+export interface IProps extends EditorProps {
     budgetStatement: BudgetStatementDocument;
     dispatch: (action: BudgetStatementAction) => void;
 }

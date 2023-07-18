@@ -20,6 +20,7 @@ const initialAccount = utils.createAccount({
                 ref: 'makerdao/project',
                 id: 'core-unit/SES/2023/005',
                 title: 'Core Unit Operational Support',
+                color: '#000000',
             },
             budgetCap: 100000,
             payment: 0,

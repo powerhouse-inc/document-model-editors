@@ -1,7 +1,9 @@
-import { createEmptyExtendedDocumentModelState, reducer, actions, DocumentModel } 
-    from '@acaldas/document-model-libs/browser/document-model';
+import {
+    createEmptyExtendedDocumentModelState,
+    reducer,
+} from '@acaldas/document-model-libs/browser/document-model';
 
-import { useDocumentReducer } from '../base';
+import { useDocumentReducer } from '../common';
 
 export default function useDocumentModelReducer() {
     return useDocumentReducer(

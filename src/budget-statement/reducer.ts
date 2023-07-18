@@ -3,7 +3,7 @@ import {
     reducer as BudgetStatementReducer,
     utils,
 } from '@acaldas/document-model-libs/browser/budget-statement';
-import { useDocumentReducer } from '../base';
+import { useDocumentReducer } from '../common';
 
 export default function useBudgetStatementReducer(
     initialState: Partial<
