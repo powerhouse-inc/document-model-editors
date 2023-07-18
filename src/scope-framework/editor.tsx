@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, CSSProperties, useEffect } from "react";
 import useScopeFrameworkReducer from "./reducer";
-import { actions, types } from '@acaldas/document-model-libs/browser/scope-framework';
+import { ExtendedScopeFrameworkState, ScopeFrameworkAction, actions, types } from '@acaldas/document-model-libs/browser/scope-framework';
 import DocumentEditor from "../common/documentEditor";
 import EditorToolbar from "../common/editorToolbar";
 import "../common/styles.css"
@@ -8,14 +8,16 @@ import "./style.css";
 import ToolbarButton from "../common/toolbarButton";
 import EditorWorksheet from "../common/editorWorksheet";
 import AtlasElement from "./components/atlasElement";
+import { EditorProps } from "../common";
+import type { BaseAction } from "@acaldas/document-model-libs/document";
 
-interface EditorProps {
-    debug? : boolean,
-    mode: 'light' | 'dark'
+export interface IProps extends EditorProps {
+    scopeFramework: ExtendedScopeFrameworkState;
+    dispatch: (action: ScopeFrameworkAction | BaseAction) => void;
 }
 
-function Editor(props: EditorProps) {
-    const [state, dispatch, reset] = useScopeFrameworkReducer();
+function Editor(props: IProps) {
+    const {scopeFramework: state, dispatch, editorContext} = props;
 
     const handleNameUpdate = (id:string, name:string) => dispatch(actions.updateElementName({id, name}));
     
@@ -52,7 +54,7 @@ function Editor(props: EditorProps) {
     }
 
     return (
-        <DocumentEditor mode={props.mode}>
+        <DocumentEditor mode={editorContext.theme}>
             <EditorToolbar
                 key="toolbar"
                 left={[
@@ -78,26 +80,30 @@ function Editor(props: EditorProps) {
                     onUpdateType={handleTypeUpdate}
                     onUpdateComponents={handleComponentsUpdate}
                     onDelete={handleDelete}
-                    mode={props.mode}
+                    mode={props.editorContext.theme}
                 />)}
-                { props.debug ?
+                { editorContext.debug ?
                     <code 
                         key='stateView' 
                         style={{
-                            maxWidth: '60em', 
-                            margin: '4em auto', 
+                            maxWidth: '60em',
+                            margin: '4em auto',
                             padding: '2em 0',
-                            display: 'block', 
+                            display: 'block',
                             whiteSpace: 'pre-wrap',
                             fontFamily: 'monospace',
                             lineHeight: '1.7',
-                            borderTop: '1px solid #aaa'
-                        }}>{JSON.stringify(state, null, 2)}</code>
-                    : '' 
-                }
+                            borderTop: '1px solid #aaa',
+                        }}
+                    >
+                        {JSON.stringify(state, null, 2)}
+                    </code>
+                 : (
+                    ''
+                )}
             </EditorWorksheet>
         </DocumentEditor>
     );
-}
+};
 
 export default Editor;

@@ -1,5 +1,6 @@
 export type EditorContext = {
     theme: 'light' | 'dark';
+    debug?: boolean;
 };
 
 export type EditorProps = {

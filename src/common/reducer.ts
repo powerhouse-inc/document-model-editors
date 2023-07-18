@@ -1,5 +1,6 @@
 import {
     Action,
+    BaseAction,
     Document,
     Reducer,
 } from '@acaldas/document-model-libs/document';
@@ -23,21 +24,21 @@ const wrapReducer = <State, A extends Action>(reducer: Reducer<State, A>) => {
 };
 
 export function useDocumentReducer<State, A extends Action>(
-    reducer: Reducer<State, A>,
+    reducer: Reducer<State, A | BaseAction>,
     initialState: Partial<
-        Omit<Document<State, A>, 'data'> & {
+        Omit<Document<State, A | BaseAction>, 'data'> & {
             data: Partial<State>;
         }
     >,
     initializer: (
         initialState?:
             | Partial<
-                  Omit<Document<State, A>, 'data'> & {
+                  Omit<Document<State, A | BaseAction>, 'data'> & {
                       data: Partial<State>;
                   }
               >
             | undefined
-    ) => Document<State, A>
+    ) => Document<State, A | BaseAction>
 ) {
     const [state, dispatch] = useReducer(
         wrapReducer(reducer),
@@ -47,8 +48,9 @@ export function useDocumentReducer<State, A extends Action>(
 
     return [
         state,
-        (action: A | ResetAction<Document<State, A>>) => dispatch(action),
-        (state: Document<State, A>) =>
+        (action: A | BaseAction | ResetAction<Document<State, A>>) =>
+            dispatch(action),
+        (state: Document<State, A | BaseAction>) =>
             dispatch({ type: '_REACT_RESET', input: state }),
     ] as const;
 }
