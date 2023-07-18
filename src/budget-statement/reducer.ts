@@ -1,4 +1,5 @@
 import {
+    BudgetStatementAction,
     BudgetStatementDocument,
     reducer as BudgetStatementReducer,
     utils,
@@ -6,15 +7,10 @@ import {
 import { useDocumentReducer } from '../common';
 
 export default function useBudgetStatementReducer(
-    initialState: Partial<
-        Omit<BudgetStatementDocument, 'data'> & {
-            data: Partial<BudgetStatementDocument['data']>;
-        }
-    >
+    initialState: BudgetStatementDocument = utils.createBudgetStatement()
 ) {
-    return useDocumentReducer(
-        BudgetStatementReducer,
-        initialState,
-        utils.createBudgetStatement
-    );
+    return useDocumentReducer<
+        BudgetStatementDocument['data'],
+        BudgetStatementAction
+    >(BudgetStatementReducer, initialState);
 }

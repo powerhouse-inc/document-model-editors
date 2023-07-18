@@ -25,26 +25,9 @@ const wrapReducer = <State, A extends Action>(reducer: Reducer<State, A>) => {
 
 export function useDocumentReducer<State, A extends Action>(
     reducer: Reducer<State, A | BaseAction>,
-    initialState: Partial<
-        Omit<Document<State, A | BaseAction>, 'data'> & {
-            data: Partial<State>;
-        }
-    >,
-    initializer: (
-        initialState?:
-            | Partial<
-                  Omit<Document<State, A | BaseAction>, 'data'> & {
-                      data: Partial<State>;
-                  }
-              >
-            | undefined
-    ) => Document<State, A | BaseAction>
+    initialState: Document<State, A | BaseAction>
 ) {
-    const [state, dispatch] = useReducer(
-        wrapReducer(reducer),
-        initialState,
-        initializer
-    );
+    const [state, dispatch] = useReducer(wrapReducer(reducer), initialState);
 
     return [
         state,

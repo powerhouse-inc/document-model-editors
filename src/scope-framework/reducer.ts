@@ -1,5 +1,6 @@
 import {
     createEmptyExtendedScopeFrameworkState,
+    ExtendedScopeFrameworkState,
     reducer,
     ScopeFrameworkAction,
     types,
@@ -7,10 +8,11 @@ import {
 
 import { useDocumentReducer } from '../common';
 
-export default function useScopeFrameworkReducer() {
+export default function useScopeFrameworkReducer(
+    initialState: ExtendedScopeFrameworkState = createEmptyExtendedScopeFrameworkState()
+) {
     return useDocumentReducer<types.ScopeFrameworkState, ScopeFrameworkAction>(
         reducer,
-        createEmptyExtendedScopeFrameworkState(),
-        createEmptyExtendedScopeFrameworkState
+        initialState
     );
 }
