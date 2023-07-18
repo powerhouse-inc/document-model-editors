@@ -13,6 +13,10 @@ interface AtlasElementProps {
     mode: 'light' | 'dark';
 }
 
+const isFirstElement = (element: types.ScopeFrameworkElement) => {
+    return (element.type !== 'Section' && element.type !== 'Core');
+}
+
 function AtlasElement(props: AtlasElementProps) {
     const components = props.element.components;
 
@@ -45,7 +49,7 @@ function AtlasElement(props: AtlasElementProps) {
 
     return (
         <div
-            className="atlas-element"
+            className={isFirstElement(props.element) ? "atlas-element atlas-element--first" : "atlas-element"}
             onFocus={handleFocus}
             onBlur={handleBlur}
         >
@@ -71,12 +75,8 @@ function AtlasElement(props: AtlasElementProps) {
                         theme={props.mode}
                     />
                 </div>
-                <div className="atlas-element--header-component atlas-element--version">
-                    Rev {props.element.version}
-                </div>
-                <div className="atlas-element--header-component atlas-element--icons">
-                    ...
-                </div>
+                <div className="atlas-element--header-component atlas-element--version"></div>
+                <div className="atlas-element--header-component atlas-element--icons"></div>
             </div>
             <div className="atlas-element--componentsList">
                 <div className="atlas-element--component">

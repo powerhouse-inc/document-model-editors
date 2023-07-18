@@ -1,7 +1,11 @@
 .atlas-element {
     display: block;
     margin: 1rem 0;
-    border-top: 1px solid #aaa;
+    padding: 1rem 0 0 0;
+}
+
+.atlas-element--first {
+    border-top: 1px solid #323337;
     padding: 5rem 0 0 0;
 }
 
@@ -15,7 +19,7 @@
 }
 
 .atlas-element--path {
-    width: 20%;
+    width: 15%;
     text-align: right;
 }
 
@@ -28,27 +32,29 @@
 }
 
 .atlas-element--name {
-    width: 50%;
+    width: 75%;
     font-size: 150%;
     font-weight: bold;
 }
 
 .atlas-element--version {
     width: 10%;
+    display: none;
 }
 
 .atlas-element--icons {
     width: 10%;
+    display: none;
 }
 
 .atlas-element--componentLabel {
-    width: 30%;
+    width: 25%;
     text-align: right;
     color: #aaa;
     font-size: small;
 }
 
 .atlas-element--componentInput {
-    width: 70%;
+    width: 75%;
     text-align: left;
 }
