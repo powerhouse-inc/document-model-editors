@@ -65,10 +65,10 @@ function Editor(props: IProps) {
     const {scopeFramework: state, dispatch, editorContext} = props;
 
     useEffect(() => {
-        if (state.revision < 1) {
+        if (!state.operations.length) {
             dispatch(actions.setName('MakerDAO Atlas'));
         }
-    });
+    }, []);
 
     const handleNameUpdate = (id:string, name:string) => dispatch(actions.updateElementName({id, name}));
     
@@ -139,7 +139,7 @@ function Editor(props: IProps) {
                 center={[
                     <ToolbarButton key="art" onClick={handleAddArticle}>＋ add article</ToolbarButton>,
                     <ToolbarButton key="sct" onClick={handleAddSection}>＋ add section</ToolbarButton>,
-                    <ToolbarButton key="sct" onClick={handleAddCore}>＋ add core</ToolbarButton>,
+                    <ToolbarButton key="cor" onClick={handleAddCore}>＋ add core</ToolbarButton>,
                 ]}
                 right={[
                     <ToolbarButton key="rev">revision history</ToolbarButton>
