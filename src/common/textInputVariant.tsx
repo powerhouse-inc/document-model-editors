@@ -24,7 +24,7 @@ function TextInput(props: TextInputProps) {
 
     useEffect(() => {
         setState({ ...state, value: props.value || '' });
-    }, [props]);
+    }, [props.value]);
 
     const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter') {
