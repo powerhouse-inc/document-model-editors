@@ -14,7 +14,7 @@ const meta = {
         const [args, setArgs] = useArgs<IProps>();
         const emit = useChannel({});
 
-        const [state, dispatch, reset] = useScopeFrameworkReducer(
+        const [state, dispatch] = useScopeFrameworkReducer(
             args.scopeFramework,
             console.error
         );
@@ -22,7 +22,6 @@ const meta = {
         //  resets the budget state in the reducer when the prop changes
         useEffect(() => {
             if (state) {
-                reset(state);
                 setArgs({ scopeFramework: state });
                 emit('BUDGET_STATEMENT', state);
             }
