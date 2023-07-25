@@ -1,6 +1,6 @@
 {
     "name": "document-model-editors",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "type": "module",
     "types": "dist/index.d.ts",
     "main": "dist/cjs/index.js",
@@ -22,7 +22,7 @@
         "build-storybook": "storybook build"
     },
     "dependencies": {
-        "@acaldas/document-model-libs": "file:../document-model-libs",
+        "@acaldas/document-model-libs": "^1.0.17",
         "@graphql-codegen/core": "^3.1.0",
         "@graphql-codegen/typescript": "^3.0.4",
         "@monaco-editor/react": "^4.5.0",

@@ -14,8 +14,10 @@
   dependencies:
     zod "^3.21.4"
 
-"@acaldas/document-model-libs@file:../document-model-libs":
-  version "1.0.14"
+"@acaldas/document-model-libs@^1.0.17":
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/@acaldas/document-model-libs/-/document-model-libs-1.0.17.tgz#649341a9537d9bb69e9791b4cff5db52b4a4b731"
+  integrity sha512-rCYnH4E7PgXfeyfRrfWMqkFPAgmYvfkQdsoNDgQ4zg0japsmjh2AZm15aezKhwxPVmPDzRUVlqe7QFTT4vneAA==
   dependencies:
     "@acaldas/document-model-graphql" "^1.0.13"
     immer "^9.0.19"
