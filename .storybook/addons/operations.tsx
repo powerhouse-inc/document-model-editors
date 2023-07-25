@@ -1,4 +1,4 @@
-import { BudgetStatementDocument } from '@acaldas/document-model-libs/browser/budget-statement';
+import { Document } from '@acaldas/document-model-libs/document';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/manager-api';
 import React, { useEffect, useState } from 'react';
@@ -7,7 +7,7 @@ const ADDON_ID = 'Operations';
 const PANEL_ID = `${ADDON_ID}/panel`;
 
 const OperationsPanel = (
-    { operations }: { operations: BudgetStatementDocument['operations'] } // TODO export
+    { operations }: { operations: Document['operations'] } // TODO export
 ) => (
     <table
         style={{
@@ -57,12 +57,12 @@ addons.register(ADDON_ID, api => {
         title: 'Operations',
         render: ({ active, key }) => {
             const [budgetStatement, setBudgetStatement] =
-                useState<BudgetStatementDocument>();
+                useState<Document>();
             useEffect(() => {
-                channel?.addListener('BUDGET_STATEMENT', setBudgetStatement);
+                channel?.addListener('DOCUMENT', setBudgetStatement);
                 return () =>
                     channel?.removeListener(
-                        'BUDGET_STATEMENT',
+                        'DOCUMENT',
                         setBudgetStatement
                     );
             }, [channel]);

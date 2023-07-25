@@ -10,12 +10,12 @@ import AccountForm from './components/account-form';
 import AccountsTable from './components/accounts-table';
 import LineItemForm from './components/line-item-form';
 
-export interface IProps extends EditorProps {
-    budgetStatement: BudgetStatementDocument;
-    dispatch: (action: BudgetStatementAction) => void;
-}
+export type IProps = EditorProps<
+    BudgetStatementDocument['data'],
+    BudgetStatementAction
+>;
 
-const Editor: React.FC<IProps> = ({ budgetStatement, dispatch }) => {
+function Editor({ document: budgetStatement, dispatch }: IProps) {
     function addAccount(account: AccountInput) {
         dispatch(actions.addAccount([account]));
     }
@@ -58,6 +58,6 @@ const Editor: React.FC<IProps> = ({ budgetStatement, dispatch }) => {
             </div>
         </div>
     );
-};
+}
 
 export default Editor;
