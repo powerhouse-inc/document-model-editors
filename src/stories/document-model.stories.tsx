@@ -1,27 +1,14 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { createEmptyExtendedDocumentModelState } from '@acaldas/document-model-libs/browser/document-model';
 import Editor from '../document-model/editor';
+import useDocumentModelReducer from '../document-model/reducer';
+import { createDocumentStory } from './utils';
 
-const meta = {
-    title: 'DocumentModel',
-    component: Editor,
-    argTypes: {
-        mode: {
-            options: ['light', 'dark'],
-            control: { type: 'radio' }
-        },
-        debug: {
-            name: 'show state',
-            control: {type: 'boolean'}
-        }
-    },
-    args: {
-        mode: 'light'
-    }
-} satisfies Meta<typeof Editor>;
+const { meta, CreateDocumentStory } = createDocumentStory(
+    Editor,
+    useDocumentModelReducer,
+    createEmptyExtendedDocumentModelState()
+);
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default { ...meta, title: 'Document Model' };
 
-export const CreateDocumentType: Story = {
-    name: "New document"
-};
+export { CreateDocumentStory };

@@ -1,121 +1,119 @@
-import React, { CSSProperties, useEffect } from "react";
-import TextInput from "../common/textInput";
-import { ColorTheme, colorScheme, typographySizes } from "../common/styles";
-import useDocumentModelReducer from "./reducer";
-import { actions } from '@acaldas/document-model-libs/browser/document-model';
+import {
+    actions,
+    DocumentModelAction,
+    ExtendedDocumentModelState,
+} from '@acaldas/document-model-libs/browser/document-model';
+import { CSSProperties, useEffect } from 'react';
+import { EditorProps } from 'src/common';
+import { colorScheme, ColorTheme, typographySizes } from '../common/styles';
+import TextInput from '../common/textInput';
 
-interface EditorProps {
-    mode? : ColorTheme,
-    debug? : boolean
-}
-
-interface Entry {
-    id: string,
-    value: string
-}
-
-function Editor(props: EditorProps) {
-    const theme: ColorTheme = props.mode || 'light';
+export type IProps = EditorProps<
+    ExtendedDocumentModelState['data'],
+    DocumentModelAction
+>;
+function Editor(props: IProps) {
+    const theme: ColorTheme = props.editorContext.theme || 'light';
     const scheme = colorScheme[theme];
     const style: CSSProperties = {
-        backgroundColor: scheme.bgColor, 
-        color: scheme.color, 
-        maxWidth: "60em", 
-        margin:"1em auto",
-        padding:"6em",
-        border: "2px solid " + scheme.border,
-        boxShadow: "2px 2px 2px " + scheme.shadow,
-        fontFamily: "Roboto, sans-serif",
-        position: 'relative'
+        backgroundColor: scheme.bgColor,
+        color: scheme.color,
+        maxWidth: '60em',
+        margin: '1em auto',
+        padding: '6em',
+        border: '2px solid ' + scheme.border,
+        boxShadow: '2px 2px 2px ' + scheme.shadow,
+        fontFamily: 'Roboto, sans-serif',
+        position: 'relative',
     };
 
-    const [state, dispatch, reset] = useDocumentModelReducer();
+    const { document: state, dispatch } = props;
 
     useEffect(() => {
         if (state.operations.length < 1) {
-            dispatch(actions.setModelId({id:''}));
+            dispatch(actions.setModelId({ id: '' }));
         }
     });
 
-    const setModelId = (id:string) => {
-        dispatch(actions.setModelId({id}));
-    }
+    const setModelId = (id: string) => {
+        dispatch(actions.setModelId({ id }));
+    };
 
-    const setModelExtension = (extension:string) => {
-        dispatch(actions.setModelExtension({extension}));
-    }
+    const setModelExtension = (extension: string) => {
+        dispatch(actions.setModelExtension({ extension }));
+    };
 
-    const setModelName = (name:string) => {
-        dispatch(actions.setModelName({name}));
-    }
+    const setModelName = (name: string) => {
+        dispatch(actions.setModelName({ name }));
+    };
 
-    const setAuthorName = (authorName:string) => {
-        dispatch(actions.setAuthorName({authorName}));
-    }
+    const setAuthorName = (authorName: string) => {
+        dispatch(actions.setAuthorName({ authorName }));
+    };
 
-    const setAuthorWebsite = (authorWebsite:string) => {
-        dispatch(actions.setAuthorWebsite({authorWebsite}));
-    }
-    
-    const addModule = (name:string) => {
-        dispatch(actions.addModule({name}));
-    }
+    const setAuthorWebsite = (authorWebsite: string) => {
+        dispatch(actions.setAuthorWebsite({ authorWebsite }));
+    };
 
-    const updateModuleName = (id: string, name:string) => {
-        dispatch(actions.setModuleName({id, name}));
-    }
+    const addModule = (name: string) => {
+        dispatch(actions.addModule({ name }));
+    };
 
-    const updateModuleDescription = (id: string, description:string) => {
-        dispatch(actions.setModuleDescription({id, description}));
-    }
+    const updateModuleName = (id: string, name: string) => {
+        dispatch(actions.setModuleName({ id, name }));
+    };
 
-    const deleteModule = (id:string) => {
-        dispatch(actions.deleteModule({id}));
-    }
+    const updateModuleDescription = (id: string, description: string) => {
+        dispatch(actions.setModuleDescription({ id, description }));
+    };
 
-    const addOperation = (moduleId:string, name: string) => {
-        dispatch(actions.addOperation({moduleId, name}));
-    }
+    const deleteModule = (id: string) => {
+        dispatch(actions.deleteModule({ id }));
+    };
+
+    const addOperation = (moduleId: string, name: string) => {
+        dispatch(actions.addOperation({ moduleId, name }));
+    };
 
     const updateOperationName = (id: string, name: string) => {
-        dispatch(actions.setOperationName({id, name}))
-    }
+        dispatch(actions.setOperationName({ id, name }));
+    };
 
     const deleteOperation = (id: string) => {
-        dispatch(actions.deleteOperation({id}))
-    }
+        dispatch(actions.deleteOperation({ id }));
+    };
 
     return (
         <>
-            <div style={{...style, minHeight: '70em'}}>
-                <TextInput 
+            <div style={{ ...style, minHeight: '70em' }}>
+                <TextInput
                     key="modelName"
-                    theme={theme} 
+                    theme={theme}
                     value={state.data.name}
-                    placeholder="Document Model Name" 
+                    placeholder="Document Model Name"
                     autoFocus={true}
                     onSubmit={setModelName}
                     clearOnSubmit={false}
                     size="larger"
                 />
-                <div style={{width: '50%', display:'inline-block'}}>
-                    <TextInput 
+                <div style={{ width: '50%', display: 'inline-block' }}>
+                    <TextInput
                         key="modelId"
-                        theme={theme} 
+                        theme={theme}
                         value={state.data.id}
-                        placeholder="Model Type" 
+                        placeholder="Model Type"
                         autoFocus={false}
                         onSubmit={setModelId}
                         clearOnSubmit={false}
                         size="small"
                     />
                 </div>
-                <div style={{width: '50%', display:'inline-block'}}>
-                    <TextInput 
+                <div style={{ width: '50%', display: 'inline-block' }}>
+                    <TextInput
                         key="modelExtension"
-                        theme={theme} 
+                        theme={theme}
                         value={state.data.extension}
-                        placeholder="File Extension(s)" 
+                        placeholder="File Extension(s)"
                         autoFocus={false}
                         onSubmit={setModelExtension}
                         clearOnSubmit={false}
@@ -123,25 +121,25 @@ function Editor(props: EditorProps) {
                     />
                 </div>
                 <div>
-                    <p style={{...typographySizes.tiny}}>Author</p>
-                    <div style={{width: '50%', display:'inline-block'}}>
-                        <TextInput 
+                    <p style={{ ...typographySizes.tiny }}>Author</p>
+                    <div style={{ width: '50%', display: 'inline-block' }}>
+                        <TextInput
                             key="authorName"
-                            theme={theme} 
+                            theme={theme}
                             value={state.data.author.name}
-                            placeholder="Author Name" 
+                            placeholder="Author Name"
                             autoFocus={false}
                             onSubmit={setAuthorName}
                             clearOnSubmit={false}
                             size="small"
                         />
                     </div>
-                    <div style={{width: '50%', display:'inline-block'}}>
-                        <TextInput 
+                    <div style={{ width: '50%', display: 'inline-block' }}>
+                        <TextInput
                             key="authorWebsite"
-                            theme={theme} 
+                            theme={theme}
                             value={state.data.author.website || ''}
-                            placeholder="https://" 
+                            placeholder="https://"
                             autoFocus={false}
                             onSubmit={setAuthorWebsite}
                             clearOnSubmit={false}
@@ -149,59 +147,63 @@ function Editor(props: EditorProps) {
                         />
                     </div>
                 </div>
-                {
-                    state.data.modules.map(m => <div key={m.id}>
-                        <TextInput 
+                {state.data.modules.map(m => (
+                    <div key={m.id}>
+                        <TextInput
                             key={m.id + '#name'}
                             theme={theme}
-                            placeholder="Module Name" 
+                            placeholder="Module Name"
                             autoFocus={false}
-                            onSubmit={(name) => updateModuleName(m.id, name)}
+                            onSubmit={name => updateModuleName(m.id, name)}
                             onEmpty={() => deleteModule(m.id)}
                             value={m.name}
                             clearOnSubmit={false}
                             size="large"
                             horizontalLine={true}
                         />
-                        <TextInput 
+                        <TextInput
                             key={m.id + '#description'}
                             theme={theme}
-                            placeholder={'Module ' + m.name + ' description'} 
+                            placeholder={'Module ' + m.name + ' description'}
                             autoFocus={false}
-                            onSubmit={(description) => updateModuleDescription(m.id, description)}
+                            onSubmit={description =>
+                                updateModuleDescription(m.id, description)
+                            }
                             value={m.description || ''}
                             clearOnSubmit={false}
                             size="small"
                         />
-                        {m.operations.map(op => 
+                        {m.operations.map(op => (
                             <div key={op.id}>
-                                <TextInput 
+                                <TextInput
                                     key={op.id + '#name'}
-                                    theme={theme} 
+                                    theme={theme}
                                     autoFocus={false}
-                                    onSubmit={(name) => updateOperationName(op.id, name)}
+                                    onSubmit={name =>
+                                        updateOperationName(op.id, name)
+                                    }
                                     onEmpty={() => deleteOperation(op.id)}
                                     value={op.name || ''}
                                     clearOnSubmit={false}
                                     size="medium"
                                 />
                             </div>
-                        )}
-                        <TextInput 
+                        ))}
+                        <TextInput
                             key={m.id + '#newOperation'}
-                            theme={theme} 
+                            theme={theme}
                             autoFocus={false}
                             placeholder="Add operation..."
-                            onSubmit={(name) => addOperation(m.id, name)}
+                            onSubmit={name => addOperation(m.id, name)}
                             clearOnSubmit={true}
                             size="medium"
                         />
-                    </div>)
-                }
-                <TextInput 
+                    </div>
+                ))}
+                <TextInput
                     key="newModule"
                     theme={theme}
-                    placeholder="Module Name" 
+                    placeholder="Module Name"
                     autoFocus={false}
                     onSubmit={addModule}
                     clearOnSubmit={true}
@@ -209,22 +211,6 @@ function Editor(props: EditorProps) {
                     horizontalLine={true}
                 />
             </div>
-            { props.debug ?
-                <code 
-                    key='stateView' 
-                    style={{
-                        ...style, 
-                        maxWidth: '60em', 
-                        margin: '4em auto', 
-                        maxHeight: '25em', 
-                        overflowY: 'scroll', 
-                        display: 'block', 
-                        whiteSpace: 'pre-wrap',
-                        fontFamily: 'monospace',
-                        lineHeight: '1.7'
-                    }}>{JSON.stringify(state, null, 2)}</code>
-                : '' 
-            }
         </>
     );
 }
