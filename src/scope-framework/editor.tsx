@@ -18,6 +18,10 @@ import './style.css';
 
 export type IProps = EditorProps<ScopeFrameworkState, ScopeFrameworkAction>;
 
+export const randomId = () => {
+    return Math.floor(Math.random() * Date.now()).toString(36);
+};
+
 const getHighestPathWithPrefix = (prefix: string, paths: string[]) => {
     prefix += '.';
     let result = 0,
@@ -36,11 +40,11 @@ const getHighestPathWithPrefix = (prefix: string, paths: string[]) => {
 };
 
 const getNextPath = (
-    state: ExtendedScopeFrameworkState,
+    document: ExtendedScopeFrameworkState,
     type: types.ScopeFrameworkElementType
 ): string => {
-    const result = [state.data.rootPath],
-        paths = state.data.elements.map(e => e.path);
+    const result = [document.state.rootPath],
+        paths = document.state.elements.map(e => e.path);
 
     if (type == 'Scope') {
         result.push(getHighestPathWithPrefix(result[0], paths) + 1 + '');
@@ -68,10 +72,10 @@ const getNextPath = (
 };
 
 function ScopeFrameworkEditor(props: IProps) {
-    const { document: state, dispatch, editorContext } = props;
+    const { document, dispatch, editorContext } = props;
 
     useEffect(() => {
-        if (!state.operations.length) {
+        if (!document.operations.length) {
             dispatch(actions.setName('MakerDAO Atlas'));
         }
     }, []);
@@ -96,7 +100,7 @@ function ScopeFrameworkEditor(props: IProps) {
         );
 
     const handleDelete = (id: string) => {
-        const elements = state.data.elements.filter(e => e.id == id);
+        const elements = document.state.elements.filter(e => e.id == id);
         if (elements.length == 1 && elements[0].type !== 'Scope') {
             dispatch(actions.removeElement({ id }));
         }
@@ -105,8 +109,9 @@ function ScopeFrameworkEditor(props: IProps) {
     const handleAddArticle = () => {
         dispatch(
             actions.addElement({
+                id: randomId(),
                 type: 'Article',
-                path: getNextPath(state, 'Article'),
+                path: getNextPath(document, 'Article'),
                 name: null,
                 components: {
                     content: null,
@@ -118,8 +123,9 @@ function ScopeFrameworkEditor(props: IProps) {
     const handleAddSection = () => {
         dispatch(
             actions.addElement({
+                id: randomId(),
                 type: 'Section',
-                path: getNextPath(state, 'Section'),
+                path: getNextPath(document, 'Section'),
                 name: null,
                 components: {
                     content: null,
@@ -131,8 +137,9 @@ function ScopeFrameworkEditor(props: IProps) {
     const handleAddCore = () => {
         dispatch(
             actions.addElement({
+                id: randomId(),
                 type: 'Core',
-                path: getNextPath(state, 'Core'),
+                path: getNextPath(document, 'Core'),
                 name: null,
                 components: {
                     content: null,
@@ -189,18 +196,18 @@ function ScopeFrameworkEditor(props: IProps) {
                 >
                     <TextInput
                         key="doc-title"
-                        value={state.name}
+                        value={document.name}
                         size="huge"
                         theme={editorContext.theme}
                         onSubmit={handleSetDocumentName}
                     />
                     <p key="lastModified">
                         Last Modified:{' '}
-                        {state.lastModified
+                        {document.lastModified
                             .toString()
                             .slice(0, 16)
                             .replace('T', ' ')}{' '}
-                        UTC &ndash; Version: {state.revision}
+                        UTC &ndash; Version: {document.revision}
                     </p>
                 </div>
                 <div
@@ -209,13 +216,13 @@ function ScopeFrameworkEditor(props: IProps) {
                 >
                     <TextInput
                         key="doc-title"
-                        value={state.data.rootPath}
+                        value={document.state.rootPath}
                         size="chapter"
                         theme={editorContext.theme}
                         onSubmit={handleSetRootPath}
                     />
                 </div>
-                {state.data.elements.map(d => (
+                {document.state.elements.map(d => (
                     <AtlasElement
                         key={d.id}
                         element={d}
@@ -240,7 +247,7 @@ function ScopeFrameworkEditor(props: IProps) {
                             borderTop: '1px solid #aaa',
                         }}
                     >
-                        {JSON.stringify(state, null, 2)}
+                        {JSON.stringify(document, null, 2)}
                     </code>
                 ) : (
                     ''
