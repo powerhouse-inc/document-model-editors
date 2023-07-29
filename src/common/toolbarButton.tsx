@@ -12,7 +12,9 @@ function ToolbarButton(props: PropsWithChildren<ToolbarButtonProps>) {
     return (
         <div 
             onClick={handleClick}
-            className="toolbar-button">
+            className="toolbar-button"
+            style={{userSelect: 'none'}}
+        >
             {props.children}
         </div>
     );
