@@ -9,7 +9,7 @@ import { colorScheme, ColorTheme, typographySizes } from '../common/styles';
 import TextInput from '../common/textInput';
 
 export type IProps = EditorProps<
-    ExtendedDocumentModelState['data'],
+    ExtendedDocumentModelState['state'],
     DocumentModelAction
 >;
 function Editor(props: IProps) {
@@ -27,10 +27,10 @@ function Editor(props: IProps) {
         position: 'relative',
     };
 
-    const { document: state, dispatch } = props;
+    const { document, dispatch } = props;
 
     useEffect(() => {
-        if (state.operations.length < 1) {
+        if (document.operations.length < 1) {
             dispatch(actions.setModelId({ id: '' }));
         }
     });
@@ -89,7 +89,7 @@ function Editor(props: IProps) {
                 <TextInput
                     key="modelName"
                     theme={theme}
-                    value={state.data.name}
+                    value={document.state.name}
                     placeholder="Document Model Name"
                     autoFocus={true}
                     onSubmit={setModelName}
@@ -100,7 +100,7 @@ function Editor(props: IProps) {
                     <TextInput
                         key="modelId"
                         theme={theme}
-                        value={state.data.id}
+                        value={document.state.id}
                         placeholder="Model Type"
                         autoFocus={false}
                         onSubmit={setModelId}
@@ -112,7 +112,7 @@ function Editor(props: IProps) {
                     <TextInput
                         key="modelExtension"
                         theme={theme}
-                        value={state.data.extension}
+                        value={document.state.extension}
                         placeholder="File Extension(s)"
                         autoFocus={false}
                         onSubmit={setModelExtension}
@@ -126,7 +126,7 @@ function Editor(props: IProps) {
                         <TextInput
                             key="authorName"
                             theme={theme}
-                            value={state.data.author.name}
+                            value={document.state.author.name}
                             placeholder="Author Name"
                             autoFocus={false}
                             onSubmit={setAuthorName}
@@ -138,7 +138,7 @@ function Editor(props: IProps) {
                         <TextInput
                             key="authorWebsite"
                             theme={theme}
-                            value={state.data.author.website || ''}
+                            value={document.state.author.website || ''}
                             placeholder="https://"
                             autoFocus={false}
                             onSubmit={setAuthorWebsite}
@@ -147,7 +147,7 @@ function Editor(props: IProps) {
                         />
                     </div>
                 </div>
-                {state.data.modules.map(m => (
+                {document.state.specifications[0].modules.map(m => (
                     <div key={m.id}>
                         <TextInput
                             key={m.id + '#name'}
