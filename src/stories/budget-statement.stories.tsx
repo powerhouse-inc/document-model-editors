@@ -3,6 +3,7 @@ import Editor from '../budget-statement/editor';
 import useBudgetStatementReducer from '../budget-statement/reducer';
 import { createDocumentStory } from './utils';
 
+
 const initialAccount = utils.createAccount({
     address: 'eth:0xb5eB779cE300024EDB3dF9b6C007E312584f6F4f',
     name: 'Grants Program',
