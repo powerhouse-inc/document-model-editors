@@ -10,7 +10,7 @@ export type EditorContext = {
 };
 
 export type EditorProps<S, A extends Action> = {
-    document: Document<S, A | BaseAction>;
+    document: Document<S, A>;
     dispatch: (action: A | BaseAction) => void;
     editorContext: EditorContext;
 };

@@ -1,24 +1,20 @@
 import {
     Action,
-    BaseAction,
     Document,
     Reducer,
 } from '@acaldas/document-model-libs/document';
 import { useReducer } from 'react';
 
-type ResetAction<T> = {
+type ResetAction = {
     type: '_REACT_RESET';
-    input: T;
+    input: unknown;
 };
 
 const wrapReducer = <State, A extends Action>(
     reducer: Reducer<State, A>,
     onError?: (error: unknown) => void
-) => {
-    return (
-        state: Document<State, A>,
-        action: A | ResetAction<Document<State, A>>
-    ) => {
+): Reducer<State, A | ResetAction> => {
+    return (state, action) => {
         if (action.type === '_REACT_RESET') {
             return action.input as Document<State, A>;
         }
@@ -32,8 +28,8 @@ const wrapReducer = <State, A extends Action>(
 };
 
 export function useDocumentReducer<State, A extends Action>(
-    reducer: Reducer<State, A | BaseAction>,
-    initialState: Document<State, A | BaseAction>,
+    reducer: Reducer<State, A>,
+    initialState: Document<State, A>,
     onError?: (error: unknown) => void
 ) {
     const [state, dispatch] = useReducer(
@@ -42,10 +38,9 @@ export function useDocumentReducer<State, A extends Action>(
     );
 
     return [
-        state,
-        (action: A | BaseAction | ResetAction<Document<State, A>>) =>
-            dispatch(action),
-        (state: Document<State, A | BaseAction>) =>
+        state as Document<State, A>,
+        (action: A) => dispatch(action),
+        (state: Document<State, A>) =>
             dispatch({ type: '_REACT_RESET', input: state }),
     ] as const;
 }
