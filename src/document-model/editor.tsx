@@ -1,17 +1,14 @@
 import {
     actions,
     DocumentModelAction,
-    ExtendedDocumentModelState,
+    DocumentModelState,
 } from '@acaldas/document-model-libs/browser/document-model';
 import { CSSProperties, useEffect } from 'react';
 import { EditorProps } from 'src/common';
 import { colorScheme, ColorTheme, typographySizes } from '../common/styles';
 import TextInput from '../common/textInput';
 
-export type IProps = EditorProps<
-    ExtendedDocumentModelState['state'],
-    DocumentModelAction
->;
+export type IProps = EditorProps<DocumentModelState, DocumentModelAction>;
 function Editor(props: IProps) {
     const theme: ColorTheme = props.editorContext.theme || 'light';
     const scheme = colorScheme[theme];
@@ -28,6 +25,8 @@ function Editor(props: IProps) {
     };
 
     const { document, dispatch } = props;
+
+    const { state } = document;
 
     useEffect(() => {
         if (document.operations.length < 1) {
@@ -89,7 +88,7 @@ function Editor(props: IProps) {
                 <TextInput
                     key="modelName"
                     theme={theme}
-                    value={document.state.name}
+                    value={state.name}
                     placeholder="Document Model Name"
                     autoFocus={true}
                     onSubmit={setModelName}
@@ -100,7 +99,7 @@ function Editor(props: IProps) {
                     <TextInput
                         key="modelId"
                         theme={theme}
-                        value={document.state.id}
+                        value={state.id}
                         placeholder="Model Type"
                         autoFocus={false}
                         onSubmit={setModelId}
@@ -112,7 +111,7 @@ function Editor(props: IProps) {
                     <TextInput
                         key="modelExtension"
                         theme={theme}
-                        value={document.state.extension}
+                        value={state.extension}
                         placeholder="File Extension(s)"
                         autoFocus={false}
                         onSubmit={setModelExtension}
@@ -126,7 +125,7 @@ function Editor(props: IProps) {
                         <TextInput
                             key="authorName"
                             theme={theme}
-                            value={document.state.author.name}
+                            value={state.author.name}
                             placeholder="Author Name"
                             autoFocus={false}
                             onSubmit={setAuthorName}
@@ -138,7 +137,7 @@ function Editor(props: IProps) {
                         <TextInput
                             key="authorWebsite"
                             theme={theme}
-                            value={document.state.author.website || ''}
+                            value={state.author.website || ''}
                             placeholder="https://"
                             autoFocus={false}
                             onSubmit={setAuthorWebsite}
@@ -147,7 +146,7 @@ function Editor(props: IProps) {
                         />
                     </div>
                 </div>
-                {document.state.specifications[0].modules.map(m => (
+                {state.specifications[0].modules.map(m => (
                     <div key={m.id}>
                         <TextInput
                             key={m.id + '#name'}

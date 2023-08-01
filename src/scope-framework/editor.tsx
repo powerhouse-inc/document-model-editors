@@ -40,11 +40,11 @@ const getHighestPathWithPrefix = (prefix: string, paths: string[]) => {
 };
 
 const getNextPath = (
-    document: ExtendedScopeFrameworkState,
+    extendedState: ExtendedScopeFrameworkState,
     type: types.ScopeFrameworkElementType
 ): string => {
-    const result = [document.state.rootPath],
-        paths = document.state.elements.map(e => e.path);
+    const result = [extendedState.state.rootPath],
+        paths = extendedState.state.elements.map(e => e.path);
 
     if (type == 'Scope') {
         result.push(getHighestPathWithPrefix(result[0], paths) + 1 + '');
@@ -73,6 +73,7 @@ const getNextPath = (
 
 function ScopeFrameworkEditor(props: IProps) {
     const { document, dispatch, editorContext } = props;
+    const { state } = document;
 
     useEffect(() => {
         if (!document.operations.length) {
@@ -100,7 +101,7 @@ function ScopeFrameworkEditor(props: IProps) {
         );
 
     const handleDelete = (id: string) => {
-        const elements = document.state.elements.filter(e => e.id == id);
+        const elements = state.elements.filter(e => e.id == id);
         if (elements.length == 1 && elements[0].type !== 'Scope') {
             dispatch(actions.removeElement({ id }));
         }
@@ -216,13 +217,13 @@ function ScopeFrameworkEditor(props: IProps) {
                 >
                     <TextInput
                         key="doc-title"
-                        value={document.state.rootPath}
+                        value={state.rootPath}
                         size="chapter"
                         theme={editorContext.theme}
                         onSubmit={handleSetRootPath}
                     />
                 </div>
-                {document.state.elements.map(d => (
+                {state.elements.map(d => (
                     <AtlasElement
                         key={d.id}
                         element={d}

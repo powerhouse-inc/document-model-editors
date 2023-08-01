@@ -46,7 +46,7 @@ const initialAccount = utils.createAccount({
 });
 
 const budgetStatement = utils.createBudgetStatement({
-    data: { accounts: [initialAccount] },
+    state: { accounts: [initialAccount] },
 });
 
 const { meta, CreateDocumentStory } = createDocumentStory(

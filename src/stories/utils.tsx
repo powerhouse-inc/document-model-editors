@@ -1,7 +1,8 @@
 import {
     Action,
-    BaseAction,
     Document,
+    ExtendedState,
+    utils,
 } from '@acaldas/document-model-libs/document';
 import { useArgs, useChannel } from '@storybook/preview-api';
 import { Meta, StoryObj } from '@storybook/react';
@@ -9,16 +10,16 @@ import React, { useEffect } from 'react';
 import { EditorProps } from '../common';
 
 export function createDocumentStory<S, A extends Action>(
-    Editor: (props: EditorProps<S, A | BaseAction>) => React.JSX.Element,
+    Editor: (props: EditorProps<S, A>) => React.JSX.Element,
     reducer: (
-        document: Document<S, A | BaseAction>,
+        document: Document<S, A>,
         onError?: (error: unknown) => void
     ) => readonly [
-        Document<S, A | BaseAction>,
-        (action: A | BaseAction) => void,
-        (state: Document<S, A | BaseAction>) => void
+        Document<S, A>,
+        (action: A) => void,
+        (state: Document<S, A>) => void
     ],
-    document: Document<S, A | BaseAction | BaseAction>
+    initialState: ExtendedState<S>
 ) {
     const meta = {
         component: Editor,
@@ -81,7 +82,7 @@ export function createDocumentStory<S, A extends Action>(
     const CreateDocumentStory: StoryObj<typeof meta> = {
         name: 'New document',
         args: {
-            document,
+            document: utils.createDocument(initialState),
             editorContext: {
                 theme: 'light',
             },
