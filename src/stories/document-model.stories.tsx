@@ -1,6 +1,6 @@
 import { createEmptyExtendedDocumentModelState } from '@acaldas/document-model-libs/browser/document-model';
-import Editor from '../document-model/editor';
-import useDocumentModelReducer from '../document-model/reducer';
+import Editor from '../documents/document-model/editor';
+import useDocumentModelReducer from '../documents/document-model/reducer';
 import { createDocumentStory } from './utils';
 
 const { meta, CreateDocumentStory } = createDocumentStory(

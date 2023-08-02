@@ -1,3 +1,4 @@
+import { Document, utils } from '@acaldas/document-model-libs/browser/document';
 import {
     createEmptyExtendedScopeFrameworkState,
     reducer,
@@ -5,8 +6,7 @@ import {
     ScopeFrameworkState,
     types,
 } from '@acaldas/document-model-libs/browser/scope-framework';
-import { Document, utils } from '@acaldas/document-model-libs/document';
-import { useDocumentReducer } from '../common';
+import { useDocumentReducer } from '../../common';
 
 export default function useScopeFrameworkReducer(
     document?: Document<ScopeFrameworkState, ScopeFrameworkAction>,

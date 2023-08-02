@@ -7,19 +7,17 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@acaldas/document-model-graphql@^1.0.16":
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/@acaldas/document-model-graphql/-/document-model-graphql-1.0.16.tgz#e8a1e2009b16a6a99014e49f2e4a80665d6d3712"
-  integrity sha512-4S2yEav/UZHmbXg+U5fcoppvnIIZWi0SpgV+a0Q3YgM+wmqaoKBAvBxXiW4oPGIorYiEwuDTAPkSIbuVIpKnuA==
+"@acaldas/document-model-graphql@^1.0.17":
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/@acaldas/document-model-graphql/-/document-model-graphql-1.0.17.tgz#47524d8ffb79ef363337c948167e7c636bf65db0"
+  integrity sha512-OklUGrj+ogjY4I3/aA14kQRPNL3v1LP7jFUxY+eOOqjSgzY45BOiuWvcjIcV1swYf1sxSQn3IYUBLOwnFpyfxg==
   dependencies:
     zod "^3.21.4"
 
-"@acaldas/document-model-libs@^1.0.20":
+"@acaldas/document-model-libs@file:../document-model-libs":
   version "1.0.20"
-  resolved "https://registry.yarnpkg.com/@acaldas/document-model-libs/-/document-model-libs-1.0.20.tgz#a54b14d8915256af3afd5c8a6d3daabacd3f2b3f"
-  integrity sha512-z0McC72ncsIWza1gssGyaKQ1hxj2ZFsn6gLFNdQbg6T4Y8T59s0rPpHefDCdvYKPon+xj/PZh4mb/vUVF7E1jQ==
   dependencies:
-    "@acaldas/document-model-graphql" "^1.0.16"
+    "@acaldas/document-model-graphql" "^1.0.17"
     immer "^9.0.19"
     json-stringify-deterministic "^1.0.8"
     jszip "^3.10.1"

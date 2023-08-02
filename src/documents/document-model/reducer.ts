@@ -5,8 +5,8 @@ import {
     reducer,
 } from '@acaldas/document-model-libs/browser/document-model';
 
-import { Document, utils } from '@acaldas/document-model-libs/document';
-import { useDocumentReducer } from '../common';
+import { Document, utils } from '@acaldas/document-model-libs/browser/document';
+import { useDocumentReducer } from '../../common';
 
 export default function useDocumentModelReducer(
     document?: Document<DocumentModelState, DocumentModelAction>,

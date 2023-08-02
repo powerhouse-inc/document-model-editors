@@ -75,7 +75,6 @@ function TextInput(props: TextInputProps) {
             const origValue = props.value || '';
 
             if (newValue != origValue && props.onSubmit) {
-                console.log(newValue, origValue);
                 props.onSubmit(newValue);
             }
         }

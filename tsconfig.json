@@ -20,11 +20,7 @@
         "rootDir": "src",
         "typeRoots": ["node_modules/@types"]
     },
-    "include": [
-        "src/index.ts",
-        "src/document/**/*.ts",
-        "src/budget-statement/**/*.ts"
-    ],
+    "include": ["src/index.ts", "src/documents/**/*.ts"],
     "exclude": [],
     "references": [{ "path": "./tsconfig.node.json" }]
 }

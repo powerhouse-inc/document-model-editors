@@ -3,12 +3,28 @@
     "version": "0.0.10",
     "type": "module",
     "types": "dist/index.d.ts",
-    "main": "dist/cjs/index.js",
-    "module": "dist/esm/index.js",
+    "main": "dist/index.es.js",
+    "module": "dist/index.es.js",
     "exports": {
-        ".": {
-            "require": "./dist/document-model-editors.js",
-            "import": "./dist/document-model-editors.es.js"
+        ".": "./dist/index.es.js",
+        "./budget-statement": "./dist/budget-statement.es.js",
+        "./scope-framework": "./dist/scope-framework.es.js",
+        "./document-model": "./dist/document-model.es.js"
+    },
+    "typesVersions": {
+        "*": {
+            ".": [
+                "dist"
+            ],
+            "scope-framework": [
+                "dist/documents/scope-framework"
+            ],
+            "budget-statement": [
+                "dist/documents/budget-statement"
+            ],
+            "document-model": [
+                "dist/documents/document-model"
+            ]
         }
     },
     "files": [
@@ -22,7 +38,7 @@
         "build-storybook": "storybook build"
     },
     "dependencies": {
-        "@acaldas/document-model-libs": "^1.0.20",
+        "@acaldas/document-model-libs": "file:../document-model-libs",
         "zod": "^3.21.4"
     },
     "peerDependencies": {

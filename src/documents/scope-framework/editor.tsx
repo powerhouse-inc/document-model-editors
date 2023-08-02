@@ -6,13 +6,13 @@ import {
     types,
 } from '@acaldas/document-model-libs/browser/scope-framework';
 import { useEffect } from 'react';
-import { EditorProps } from '../common';
-import DocumentEditor from '../common/documentEditor';
-import EditorToolbar from '../common/editorToolbar';
-import EditorWorksheet from '../common/editorWorksheet';
-import '../common/styles.css';
-import TextInput from '../common/textInputVariant';
-import ToolbarButton from '../common/toolbarButton';
+import { EditorProps } from '../../common';
+import DocumentEditor from '../../common/documentEditor';
+import EditorToolbar from '../../common/editorToolbar';
+import EditorWorksheet from '../../common/editorWorksheet';
+import '../../common/styles.css';
+import TextInput from '../../common/textInputVariant';
+import ToolbarButton from '../../common/toolbarButton';
 import AtlasElement from './components/atlasElement';
 import './style.css';
 

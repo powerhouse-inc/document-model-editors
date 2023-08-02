@@ -1,21 +1,27 @@
-import { useState } from 'react';
 import { types } from '@acaldas/document-model-libs/browser/scope-framework';
-import TextInput from '../../common/textInputVariant';
-import { TypographySize } from 'src/common/stylesVariant';
+import { useState } from 'react';
+import { TypographySize } from '../../../common/stylesVariant';
+import TextInput from '../../../common/textInputVariant';
 
 interface AtlasElementProps {
     element: types.ScopeFrameworkElement;
     onSetRootPath?: (newRootPath: string) => void;
     onUpdateName?: (id: string, newName: string) => void;
-    onUpdateType?: (id: string, newType: types.ScopeFrameworkElementType) => void;
-    onUpdateComponents?: (id: string, newComponents: Record<string, string>) => void;
+    onUpdateType?: (
+        id: string,
+        newType: types.ScopeFrameworkElementType
+    ) => void;
+    onUpdateComponents?: (
+        id: string,
+        newComponents: Record<string, string>
+    ) => void;
     onDelete?: (id: string) => void;
     mode: 'light' | 'dark';
 }
 
 const isFirstElement = (element: types.ScopeFrameworkElement) => {
-    return (element.type !== 'Section' && element.type !== 'Core');
-}
+    return element.type !== 'Section' && element.type !== 'Core';
+};
 
 function AtlasElement(props: AtlasElementProps) {
     const components = props.element.components;
@@ -24,32 +30,40 @@ function AtlasElement(props: AtlasElementProps) {
     const handleFocus = () => setFocus(true);
     const handleBlur = () => setFocus(false);
 
-    const handleNameUpdate = (newName: string) => props.onUpdateName?.(props.element.id, newName);
+    const handleNameUpdate = (newName: string) =>
+        props.onUpdateName?.(props.element.id, newName);
     const handleDelete = () => props.onDelete?.(props.element.id);
 
     const handleTypeUpdate = (newType: string) => {
         if (['Scope', 'Article', 'Section', 'Core'].includes(newType)) {
-            props.onUpdateType?.(props.element.id, newType as types.ScopeFrameworkElementType);
+            props.onUpdateType?.(
+                props.element.id,
+                newType as types.ScopeFrameworkElementType
+            );
         }
-    }
+    };
 
     const handleComponentsUpdate = (newContent: string) => {
         props.onUpdateComponents?.(props.element.id, {
-            'content': newContent
+            content: newContent,
         });
-    }
+    };
 
     const sizeMap = {
-        'Scope': 'larger',
-        'Article': 'large',
-        'Section': 'medium',
-        'Core': 'medium',
-        'TypeSpecification': 'medium',
-    }
+        Scope: 'larger',
+        Article: 'large',
+        Section: 'medium',
+        Core: 'medium',
+        TypeSpecification: 'medium',
+    };
 
     return (
         <div
-            className={isFirstElement(props.element) ? "atlas-element atlas-element--first" : "atlas-element"}
+            className={
+                isFirstElement(props.element)
+                    ? 'atlas-element atlas-element--first'
+                    : 'atlas-element'
+            }
             onFocus={handleFocus}
             onBlur={handleBlur}
         >
@@ -58,12 +72,12 @@ function AtlasElement(props: AtlasElementProps) {
                     {props.element.path}
                 </div>
                 <div className="atlas-element--header-component atlas-element--type">
-                    <TextInput 
-                        value={props.element.type || ''} 
-                        onSubmit={handleTypeUpdate} 
+                    <TextInput
+                        value={props.element.type || ''}
+                        onSubmit={handleTypeUpdate}
                         theme={props.mode}
-                        labelStyle 
-                        size='smaller'
+                        labelStyle
+                        size="smaller"
                     />
                 </div>
                 <div className="atlas-element--header-component atlas-element--name">
@@ -71,7 +85,11 @@ function AtlasElement(props: AtlasElementProps) {
                         value={props.element.name ?? ''}
                         onSubmit={handleNameUpdate}
                         onEmpty={handleDelete}
-                        size={sizeMap[props.element.type || 'Section'] as TypographySize}
+                        size={
+                            sizeMap[
+                                props.element.type || 'Section'
+                            ] as TypographySize
+                        }
                         theme={props.mode}
                     />
                 </div>

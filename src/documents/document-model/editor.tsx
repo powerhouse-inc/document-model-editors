@@ -1,12 +1,13 @@
+import { utils } from '@acaldas/document-model-libs/browser/document';
 import {
     actions,
     DocumentModelAction,
     DocumentModelState,
 } from '@acaldas/document-model-libs/browser/document-model';
-import { CSSProperties, useEffect } from 'react';
-import { EditorProps } from 'src/common';
-import { colorScheme, ColorTheme, typographySizes } from '../common/styles';
-import TextInput from '../common/textInput';
+import { CSSProperties } from 'react';
+import { EditorProps } from '../../common';
+import { colorScheme, ColorTheme, typographySizes } from '../../common/styles';
+import TextInput from '../../common/textInput';
 
 export type IProps = EditorProps<DocumentModelState, DocumentModelAction>;
 function Editor(props: IProps) {
@@ -28,11 +29,9 @@ function Editor(props: IProps) {
 
     const { state } = document;
 
-    useEffect(() => {
-        if (document.operations.length < 1) {
-            dispatch(actions.setModelId({ id: '' }));
-        }
-    });
+    if (document.operations.length < 1) {
+        dispatch(actions.setModelId({ id: '' }));
+    }
 
     const setModelId = (id: string) => {
         dispatch(actions.setModelId({ id }));
@@ -55,7 +54,7 @@ function Editor(props: IProps) {
     };
 
     const addModule = (name: string) => {
-        dispatch(actions.addModule({ name }));
+        dispatch(actions.addModule({ id: utils.hashKey(), name }));
     };
 
     const updateModuleName = (id: string, name: string) => {
@@ -71,7 +70,7 @@ function Editor(props: IProps) {
     };
 
     const addOperation = (moduleId: string, name: string) => {
-        dispatch(actions.addOperation({ moduleId, name }));
+        dispatch(actions.addOperation({ id: utils.hashKey(), moduleId, name }));
     };
 
     const updateOperationName = (id: string, name: string) => {

@@ -3,7 +3,7 @@ import type {
     BaseAction,
     Document,
     Reducer,
-} from '@acaldas/document-model-libs/document';
+} from '@acaldas/document-model-libs/browser/document';
 import { useReducer } from 'react';
 
 type ResetAction = {

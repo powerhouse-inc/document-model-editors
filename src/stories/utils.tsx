@@ -4,7 +4,7 @@ import {
     Document,
     ExtendedState,
     utils,
-} from '@acaldas/document-model-libs/document';
+} from '@acaldas/document-model-libs/browser/document';
 import { useArgs, useChannel } from '@storybook/preview-api';
 import { Meta, StoryObj } from '@storybook/react';
 import { useEffect } from 'react';

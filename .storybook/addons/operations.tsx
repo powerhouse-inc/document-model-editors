@@ -1,4 +1,4 @@
-import { Document } from '@acaldas/document-model-libs/document';
+import { Document } from '@acaldas/document-model-libs/browser/document';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/manager-api';
 import { useEffect, useState } from 'react';
