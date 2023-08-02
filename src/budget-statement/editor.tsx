@@ -13,7 +13,6 @@ import LineItemForm from './components/line-item-form';
 export type IProps = EditorProps<BudgetStatementState, BudgetStatementAction>;
 
 function Editor({ document: budgetStatement, dispatch }: IProps) {
-
     function addAccount(account: AccountInput) {
         dispatch(actions.addAccount([account]));
     }

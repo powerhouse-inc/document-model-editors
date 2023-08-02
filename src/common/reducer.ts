@@ -1,5 +1,6 @@
-import {
+import type {
     Action,
+    BaseAction,
     Document,
     Reducer,
 } from '@acaldas/document-model-libs/document';
@@ -39,7 +40,7 @@ export function useDocumentReducer<State, A extends Action>(
 
     return [
         state as Document<State, A>,
-        (action: A) => dispatch(action),
+        (action: A | BaseAction) => dispatch(action),
         (state: Document<State, A>) =>
             dispatch({ type: '_REACT_RESET', input: state }),
     ] as const;

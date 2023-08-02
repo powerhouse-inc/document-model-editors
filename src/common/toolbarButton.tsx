@@ -1,19 +1,21 @@
-import React, {PropsWithChildren} from "react";
+import { PropsWithChildren } from 'react';
 
 interface ToolbarButtonProps {
-    onClick?: () => void
+    onClick?: () => void;
 }
 
 function ToolbarButton(props: PropsWithChildren<ToolbarButtonProps>) {
-    const handleClick = props.onClick || (()=>{
-        console.log('No onClick handler attached to button.');
-    });
+    const handleClick =
+        props.onClick ||
+        (() => {
+            console.log('No onClick handler attached to button.');
+        });
 
     return (
-        <div 
+        <div
             onClick={handleClick}
             className="toolbar-button"
-            style={{userSelect: 'none'}}
+            style={{ userSelect: 'none' }}
         >
             {props.children}
         </div>

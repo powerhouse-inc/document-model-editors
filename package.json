@@ -22,15 +22,7 @@
         "build-storybook": "storybook build"
     },
     "dependencies": {
-        "@acaldas/document-model-libs": "^1.0.19",
-        "@graphql-codegen/core": "^3.1.0",
-        "@graphql-codegen/typescript": "^3.0.4",
-        "@monaco-editor/react": "^4.5.0",
-        "@theguild/editor": "^1.2.6",
-        "graphql": "^16.6.0",
-        "graphql-codegen-typescript-validation-schema": "^0.9.0",
-        "monaco-editor": "^0.38.0",
-        "monaco-graphql": "^1.2.1",
+        "@acaldas/document-model-libs": "^1.0.20",
         "zod": "^3.21.4"
     },
     "peerDependencies": {
@@ -38,6 +30,10 @@
         "react-dom": "^18.2.0"
     },
     "devDependencies": {
+        "@graphql-codegen/core": "^3.1.0",
+        "@graphql-codegen/typescript": "^3.0.4",
+        "@monaco-editor/react": "^4.5.0",
+        "@rollup/plugin-commonjs": "^25.0.3",
         "@storybook/addon-essentials": "^7.0.17",
         "@storybook/addon-interactions": "^7.0.17",
         "@storybook/addon-links": "^7.0.17",
@@ -46,6 +42,7 @@
         "@storybook/react": "^7.0.17",
         "@storybook/react-vite": "^7.0.17",
         "@storybook/testing-library": "^0.1.0",
+        "@theguild/editor": "^1.2.6",
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.11",
         "@types/rollup": "^0.54.0",
@@ -53,6 +50,10 @@
         "eslint": "^8.39.0",
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-storybook": "^0.6.12",
+        "graphql": "^16.6.0",
+        "graphql-codegen-typescript-validation-schema": "^0.9.0",
+        "monaco-editor": "^0.38.0",
+        "monaco-graphql": "^1.2.1",
         "patch-package": "^7.0.0",
         "prettier": "^2.8.8",
         "prettier-plugin-organize-imports": "^3.2.2",

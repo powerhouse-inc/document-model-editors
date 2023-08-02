@@ -1,12 +1,13 @@
 import {
     Action,
+    BaseAction,
     Document,
     ExtendedState,
     utils,
 } from '@acaldas/document-model-libs/document';
 import { useArgs, useChannel } from '@storybook/preview-api';
 import { Meta, StoryObj } from '@storybook/react';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { EditorProps } from '../common';
 
 export function createDocumentStory<S, A extends Action>(
@@ -16,7 +17,7 @@ export function createDocumentStory<S, A extends Action>(
         onError?: (error: unknown) => void
     ) => readonly [
         Document<S, A>,
-        (action: A) => void,
+        (action: A | BaseAction) => void,
         (state: Document<S, A>) => void
     ],
     initialState: ExtendedState<S>
@@ -28,7 +29,6 @@ export function createDocumentStory<S, A extends Action>(
             const emit = useChannel({});
 
             const [state, dispatch] = reducer(args.document, console.error);
-
             //  resets the budget state in the reducer when the prop changes
             useEffect(() => {
                 if (state) {

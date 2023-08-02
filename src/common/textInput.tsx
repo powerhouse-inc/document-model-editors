@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { inputStyle, TypographySize, typographySizes } from './styles';
 
 interface TextInputProps {
