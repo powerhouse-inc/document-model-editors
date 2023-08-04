@@ -15,4 +15,4 @@ export type EditorProps<S, A extends Action> = {
     editorContext: EditorContext;
 };
 
-export { useDocumentReducer } from './reducer';
+export { createUseDocumentReducer, useDocumentReducer } from './reducer';

@@ -7,5 +7,5 @@
         "resolveJsonModule": true,
         "jsx": "react-jsx"
     },
-    "include": ["vite.config.ts", "package.json", ".storybook/**/*.tsx"]
+    "include": ["vite.config.ts", "package.json"]
 }

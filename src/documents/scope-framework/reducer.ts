@@ -1,21 +1,12 @@
-import { Document, utils } from '@acaldas/document-model-libs/browser/document';
 import {
-    createEmptyExtendedScopeFrameworkState,
     reducer,
     ScopeFrameworkAction,
     ScopeFrameworkState,
-    types,
+    utils,
 } from '@acaldas/document-model-libs/browser/scope-framework';
-import { useDocumentReducer } from '../../common';
+import { createUseDocumentReducer } from '../../common';
 
-export default function useScopeFrameworkReducer(
-    document?: Document<ScopeFrameworkState, ScopeFrameworkAction>,
-    onError?: (error: unknown) => void
-) {
-    return useDocumentReducer<types.ScopeFrameworkState, ScopeFrameworkAction>(
-        reducer,
-        document ??
-            utils.createDocument(createEmptyExtendedScopeFrameworkState()),
-        onError
-    );
-}
+export default createUseDocumentReducer<
+    ScopeFrameworkState,
+    ScopeFrameworkAction
+>(reducer, utils.createDocument);

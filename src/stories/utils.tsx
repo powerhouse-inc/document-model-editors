@@ -7,7 +7,7 @@ import {
 } from '@acaldas/document-model-libs/browser/document';
 import { useArgs, useChannel } from '@storybook/preview-api';
 import { Meta, StoryObj } from '@storybook/react';
-import { useEffect } from 'react';
+import React from 'react';
 import { EditorProps } from '../common';
 
 export function createDocumentStory<S, A extends Action>(
@@ -20,7 +20,7 @@ export function createDocumentStory<S, A extends Action>(
         (action: A | BaseAction) => void,
         (state: Document<S, A>) => void
     ],
-    initialState: ExtendedState<S>
+    initialState: ExtendedState<Partial<S>>
 ) {
     const meta = {
         component: Editor,
@@ -30,7 +30,7 @@ export function createDocumentStory<S, A extends Action>(
 
             const [state, dispatch] = reducer(args.document, console.error);
             //  resets the budget state in the reducer when the prop changes
-            useEffect(() => {
+            React.useEffect(() => {
                 if (state) {
                     setArgs({ document: state });
                     emit('DOCUMENT', state);

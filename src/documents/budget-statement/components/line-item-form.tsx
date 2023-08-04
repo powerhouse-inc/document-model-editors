@@ -1,7 +1,4 @@
-import type {
-    Account,
-    LineItem,
-} from '@acaldas/document-model-libs/browser/budget-statement';
+import type { types } from '@acaldas/document-model-libs/browser/budget-statement';
 import { useState } from 'react';
 
 const categories = [
@@ -36,28 +33,25 @@ const groups = [
         ref: 'makerdao/project',
         id: 'Powerhouse',
         title: 'Powerhouse',
-        color: 'purple'
+        color: 'purple',
     },
     {
         ref: 'makerdao/project',
         id: 'LegalResearch',
         title: 'Legal Research',
-        color: 'red'
+        color: 'red',
     },
     {
         ref: 'makerdao/project',
         id: 'MakerAcademy',
         title: 'Maker Academy',
-        color: 'teal'
+        color: 'teal',
     },
 ];
 
 const LineItemForm: React.FC<{
-    accounts: Account[];
-    addLineItem: (
-        account: string,
-        lineItem: Partial<LineItem> & Pick<LineItem, 'category' | 'group'>
-    ) => void;
+    accounts: types.Account[];
+    addLineItem: (input: types.AddLineItemInput) => void;
 }> = ({ accounts, addLineItem }) => {
     const [selectedAccount, setSelectedAccount] = useState<string>(
         accounts.length ? accounts[0].address : ''
@@ -69,7 +63,8 @@ const LineItemForm: React.FC<{
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         const formJson = Object.fromEntries(formData.entries());
-        addLineItem(formData.get('account')!.toString(), {
+        addLineItem({
+            accountId: formData.get('account')!.toString(),
             budgetCap: parseFloat(formJson['budgetCap'].toString()),
             actual: parseFloat(formJson['actual'].toString()),
             payment: parseFloat(formJson['payment'].toString()),

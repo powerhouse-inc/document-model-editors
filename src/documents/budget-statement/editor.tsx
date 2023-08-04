@@ -1,9 +1,8 @@
 import {
-    AccountInput,
     actions,
     BudgetStatementAction,
     BudgetStatementState,
-    LineItem,
+    types,
 } from '@acaldas/document-model-libs/browser/budget-statement';
 import type { EditorProps } from '../../common';
 import AccountForm from './components/account-form';
@@ -13,30 +12,24 @@ import LineItemForm from './components/line-item-form';
 export type IProps = EditorProps<BudgetStatementState, BudgetStatementAction>;
 
 function Editor({ document: budgetStatement, dispatch }: IProps) {
-    function addAccount(account: AccountInput) {
-        dispatch(actions.addAccount([account]));
+    function addAccount(account: types.AddAccountInput) {
+        dispatch(actions.addAccount(account));
     }
 
-    function addLineItem(
-        account: string,
-        lineItem: Partial<LineItem> & Pick<LineItem, 'category' | 'group'>
-    ) {
-        dispatch(actions.addLineItem(account, [lineItem]));
+    function addLineItem(lineItem: types.AddLineItemInput) {
+        dispatch(actions.addLineItem(lineItem));
     }
 
     function deleteAccount(account: string) {
-        dispatch(actions.deleteAccount([account]));
+        dispatch(actions.deleteAccount({ account }));
     }
 
-    function deleteLineItem(
-        account: string,
-        lineItem: { category?: string; group?: string }
-    ) {
-        dispatch(actions.deleteLineItem(account, [lineItem]));
+    function deleteLineItem(input: types.DeleteLineItemInput) {
+        dispatch(actions.deleteLineItem(input));
     }
 
     const accounts = budgetStatement.state.accounts;
-
+    console.log(accounts);
     return (
         <div>
             <AccountsTable

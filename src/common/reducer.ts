@@ -2,6 +2,7 @@ import type {
     Action,
     BaseAction,
     Document,
+    ExtendedState,
     Reducer,
 } from '@acaldas/document-model-libs/browser/document';
 import { useReducer } from 'react';
@@ -27,6 +28,18 @@ const wrapReducer = <State, A extends Action>(
         }
     };
 };
+
+export function createUseDocumentReducer<State, A extends Action>(
+    reducer: Reducer<State, A>,
+    createDocument: (
+        document?: Partial<ExtendedState<Partial<State>>>
+    ) => Document<State, A>
+) {
+    return (
+        document?: Partial<ExtendedState<Partial<State>>>,
+        onError?: (error: unknown) => void
+    ) => useDocumentReducer(reducer, createDocument(document), onError);
+}
 
 export function useDocumentReducer<State, A extends Action>(
     reducer: Reducer<State, A>,

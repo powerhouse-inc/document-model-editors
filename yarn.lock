@@ -7,17 +7,15 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@acaldas/document-model-graphql@^1.0.17":
+"@acaldas/document-model-graphql@file:../document-model-graphql":
   version "1.0.17"
-  resolved "https://registry.yarnpkg.com/@acaldas/document-model-graphql/-/document-model-graphql-1.0.17.tgz#47524d8ffb79ef363337c948167e7c636bf65db0"
-  integrity sha512-OklUGrj+ogjY4I3/aA14kQRPNL3v1LP7jFUxY+eOOqjSgzY45BOiuWvcjIcV1swYf1sxSQn3IYUBLOwnFpyfxg==
   dependencies:
     zod "^3.21.4"
 
 "@acaldas/document-model-libs@file:../document-model-libs":
   version "1.0.20"
   dependencies:
-    "@acaldas/document-model-graphql" "^1.0.17"
+    "@acaldas/document-model-graphql" "file:../../../Library/Caches/Yarn/v6/npm-@acaldas-document-model-libs-1.0.20-0f3dbb00-fc2e-49d2-aa75-1db0b0bb03b7-1691168605581/node_modules/@acaldas/document-model-graphql"
     immer "^9.0.19"
     json-stringify-deterministic "^1.0.8"
     jszip "^3.10.1"

@@ -1,21 +1,7 @@
 import {
-    createEmptyExtendedDocumentModelState,
-    DocumentModelAction,
-    DocumentModelState,
     reducer,
+    utils,
 } from '@acaldas/document-model-libs/browser/document-model';
+import { createUseDocumentReducer } from '../../common';
 
-import { Document, utils } from '@acaldas/document-model-libs/browser/document';
-import { useDocumentReducer } from '../../common';
-
-export default function useDocumentModelReducer(
-    document?: Document<DocumentModelState, DocumentModelAction>,
-    onError?: (error: unknown) => void
-) {
-    return useDocumentReducer(
-        reducer,
-        document ??
-            utils.createDocument(createEmptyExtendedDocumentModelState()),
-        onError
-    );
-}
+export default createUseDocumentReducer(reducer, utils.createDocument);

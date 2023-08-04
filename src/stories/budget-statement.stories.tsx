@@ -45,7 +45,7 @@ const initialAccount = utils.createAccount({
     ],
 });
 
-const budgetStatement = utils.createBudgetStatement({
+const budgetStatement = utils.createExtendedState({
     state: { accounts: [initialAccount] },
 });
 
