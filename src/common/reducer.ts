@@ -45,7 +45,11 @@ export function useDocumentReducer<State, A extends Action>(
     reducer: Reducer<State, A>,
     initialState: Document<State, A>,
     onError?: (error: unknown) => void
-) {
+): readonly [
+    Document<State, A>,
+    (action: A | BaseAction) => void,
+    (state: Document<State, A>) => void
+] {
     const [state, dispatch] = useReducer(
         wrapReducer(reducer, onError),
         initialState
@@ -53,8 +57,7 @@ export function useDocumentReducer<State, A extends Action>(
 
     return [
         state as Document<State, A>,
-        (action: A | BaseAction) => dispatch(action),
-        (state: Document<State, A>) =>
-            dispatch({ type: '_REACT_RESET', input: state }),
+        action => dispatch(action),
+        state => dispatch({ type: '_REACT_RESET', input: state }),
     ] as const;
 }

@@ -38,7 +38,7 @@
         "build-storybook": "storybook build"
     },
     "dependencies": {
-        "@acaldas/document-model-libs": "file:../document-model-libs",
+        "@acaldas/document-model-libs": "^1.0.21",
         "zod": "^3.21.4"
     },
     "peerDependencies": {
