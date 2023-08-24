@@ -1,5 +1,13 @@
+import {
+    BudgetStatementAction,
+    BudgetStatementState,
+} from '@acaldas/document-model-libs/browser/budget-statement';
+import { EditorModule } from '../../common';
 import Editor from './editor';
-import useBudgetStatementReducer from './reducer';
 
-export { Editor, useBudgetStatementReducer };
-export default { Editor, useBudgetStatementReducer };
+const Module: EditorModule<BudgetStatementState, BudgetStatementAction> = {
+    Component: Editor,
+    documentTypes: ['powerhouse/budget-statement'],
+};
+
+export default Module;

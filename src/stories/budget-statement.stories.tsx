@@ -1,6 +1,8 @@
-import { utils } from '@acaldas/document-model-libs/browser/budget-statement';
+import {
+    reducer,
+    utils,
+} from '@acaldas/document-model-libs/browser/budget-statement';
 import Editor from '../documents/budget-statement/editor';
-import useBudgetStatementReducer from '../documents/budget-statement/reducer';
 import { createDocumentStory } from './utils';
 
 const initialAccount = utils.createAccount({
@@ -51,7 +53,7 @@ const budgetStatement = utils.createExtendedState({
 
 const { meta, CreateDocumentStory } = createDocumentStory(
     Editor,
-    useBudgetStatementReducer,
+    reducer,
     budgetStatement
 );
 

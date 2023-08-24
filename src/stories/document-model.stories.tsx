@@ -1,11 +1,13 @@
-import { utils } from '@acaldas/document-model-libs/browser/document-model';
+import {
+    reducer,
+    utils,
+} from '@acaldas/document-model-libs/browser/document-model';
 import Editor from '../documents/document-model/editor';
-import useDocumentModelReducer from '../documents/document-model/reducer';
 import { createDocumentStory } from './utils';
 
 const { meta, CreateDocumentStory } = createDocumentStory(
     Editor,
-    useDocumentModelReducer,
+    reducer,
     utils.createExtendedState()
 );
 

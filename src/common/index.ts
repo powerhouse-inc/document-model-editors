@@ -1,8 +1,13 @@
-import {
+import type {
     Action,
     BaseAction,
     Document,
 } from '@acaldas/document-model-libs/browser/document';
+
+export type EditorModule<S, A extends Action> = {
+    Component: React.FC<EditorProps<S, A>>;
+    documentTypes: String[];
+};
 
 export type EditorContext = {
     theme: 'light' | 'dark';

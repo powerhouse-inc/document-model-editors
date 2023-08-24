@@ -7,27 +7,19 @@ import type {
 } from '@acaldas/document-model-libs/browser/document';
 import { useReducer } from 'react';
 
-type ResetAction = {
-    type: '_REACT_RESET';
-    input: unknown;
-};
-
-const wrapReducer = <State, A extends Action>(
+export function wrapReducer<State, A extends Action>(
     reducer: Reducer<State, A>,
     onError?: (error: unknown) => void
-): Reducer<State, A | ResetAction> => {
+): Reducer<State, A> {
     return (state, action) => {
-        if (action.type === '_REACT_RESET') {
-            return action.input as Document<State, A>;
-        }
         try {
-            return reducer(state, action as A);
+            return reducer(state, action);
         } catch (error) {
             onError?.(error);
             return state;
         }
     };
-};
+}
 
 export function createUseDocumentReducer<State, A extends Action>(
     reducer: Reducer<State, A>,
@@ -45,19 +37,11 @@ export function useDocumentReducer<State, A extends Action>(
     reducer: Reducer<State, A>,
     initialState: Document<State, A>,
     onError?: (error: unknown) => void
-): readonly [
-    Document<State, A>,
-    (action: A | BaseAction) => void,
-    (state: Document<State, A>) => void
-] {
+): readonly [Document<State, A>, (action: A | BaseAction) => void] {
     const [state, dispatch] = useReducer(
         wrapReducer(reducer, onError),
         initialState
     );
 
-    return [
-        state as Document<State, A>,
-        action => dispatch(action),
-        state => dispatch({ type: '_REACT_RESET', input: state }),
-    ] as const;
+    return [state, dispatch] as const;
 }

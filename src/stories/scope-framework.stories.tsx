@@ -1,11 +1,13 @@
-import { utils } from '@acaldas/document-model-libs/browser/scope-framework';
-import { useScopeFrameworkReducer } from '../documents/scope-framework';
+import {
+    reducer,
+    utils,
+} from '@acaldas/document-model-libs/browser/scope-framework';
 import Editor from '../documents/scope-framework/editor';
 import { createDocumentStory } from './utils';
 
 const { meta, CreateDocumentStory } = createDocumentStory(
     Editor,
-    useScopeFrameworkReducer,
+    reducer,
     utils.createExtendedState()
 );
 

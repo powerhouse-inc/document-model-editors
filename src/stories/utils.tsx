@@ -1,25 +1,17 @@
 import {
     Action,
-    BaseAction,
-    Document,
     ExtendedState,
+    Reducer,
     utils,
 } from '@acaldas/document-model-libs/browser/document';
 import { useArgs, useChannel } from '@storybook/preview-api';
 import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { EditorProps } from '../common';
+import { EditorProps, useDocumentReducer } from '../common';
 
 export function createDocumentStory<S, A extends Action>(
     Editor: (props: EditorProps<S, A>) => React.JSX.Element,
-    reducer: (
-        document: Document<S, A>,
-        onError?: (error: unknown) => void
-    ) => readonly [
-        Document<S, A>,
-        (action: A | BaseAction) => void,
-        (state: Document<S, A>) => void
-    ],
+    reducer: Reducer<S, A>,
     initialState: ExtendedState<Partial<S>>
 ) {
     const meta = {
@@ -28,7 +20,11 @@ export function createDocumentStory<S, A extends Action>(
             const [args, setArgs] = useArgs<EditorProps<S, A>>();
             const emit = useChannel({});
 
-            const [state, dispatch] = reducer(args.document, console.error);
+            const [state, dispatch] = useDocumentReducer(
+                reducer,
+                args.document,
+                console.error
+            );
             //  resets the budget state in the reducer when the prop changes
             React.useEffect(() => {
                 if (state) {

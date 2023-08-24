@@ -1,5 +1,13 @@
+import {
+    DocumentModelAction,
+    DocumentModelState,
+} from '@acaldas/document-model-libs/browser/document-model';
+import { EditorModule } from '../../common';
 import Editor from './editor';
-import useDocumentModelReducer from './reducer';
 
-export { Editor, useDocumentModelReducer };
-export default { Editor, useDocumentModelReducer };
+const Module: EditorModule<DocumentModelState, DocumentModelAction> = {
+    Component: Editor,
+    documentTypes: ['powerhouse/document-model'],
+};
+
+export default Module;

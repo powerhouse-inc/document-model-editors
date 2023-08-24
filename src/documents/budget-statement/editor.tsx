@@ -11,7 +11,10 @@ import LineItemForm from './components/line-item-form';
 
 export type IProps = EditorProps<BudgetStatementState, BudgetStatementAction>;
 
-function Editor({ document: budgetStatement, dispatch }: IProps) {
+function BudgetStatementEditor({
+    document: budgetStatement,
+    dispatch,
+}: IProps) {
     function addAccount(account: types.AddAccountInput) {
         dispatch(actions.addAccount(account));
     }
@@ -29,7 +32,7 @@ function Editor({ document: budgetStatement, dispatch }: IProps) {
     }
 
     const accounts = budgetStatement.state.accounts;
-    console.log(accounts);
+
     return (
         <div>
             <AccountsTable
@@ -50,4 +53,4 @@ function Editor({ document: budgetStatement, dispatch }: IProps) {
     );
 }
 
-export default Editor;
+export default BudgetStatementEditor;
