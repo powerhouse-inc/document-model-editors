@@ -14,7 +14,7 @@ interface TextInputProps {
     onEmpty?: { (id: string): void };
 }
 
-function TextInput(props: TextInputProps) {
+export function TextInput(props: TextInputProps) {
     const [state, setState] = useState({
         value: props.value || '',
         hasFocus: false,
@@ -131,5 +131,3 @@ function TextInput(props: TextInputProps) {
         </div>
     );
 }
-
-export default TextInput;

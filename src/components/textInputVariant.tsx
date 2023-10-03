@@ -15,7 +15,7 @@ interface TextInputProps {
     labelStyle?: boolean;
 }
 
-function TextInput(props: TextInputProps) {
+export function TextInputVariant(props: TextInputProps) {
     const [state, setState] = useState({
         value: props.value || '',
         hasFocus: false,
@@ -149,5 +149,3 @@ function TextInput(props: TextInputProps) {
         </div>
     );
 }
-
-export default TextInput;

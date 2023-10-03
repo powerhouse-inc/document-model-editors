@@ -1,13 +1,27 @@
+import { useArgs, useChannel } from '@storybook/preview-api';
+import { Meta, ReactRenderer } from '@storybook/react';
+import { type StoryAnnotations } from '@storybook/types';
 import {
     Action,
+    BaseAction,
+    Document,
+    EditorContext,
     ExtendedState,
     Reducer,
     utils,
-} from '@acaldas/document-model-libs/browser/document';
-import { useArgs, useChannel } from '@storybook/preview-api';
-import { Meta, StoryObj } from '@storybook/react';
+} from 'document-model/document';
 import React from 'react';
-import { EditorProps, useDocumentReducer } from '../common';
+import { useDocumentReducer } from '../reducer';
+import { EditorProps } from '../types';
+
+export type DocumentStory<S, A extends Action> = StoryAnnotations<
+    ReactRenderer,
+    {
+        document: Document<S, A>;
+        dispatch: (action: A | BaseAction) => void;
+        editorContext: EditorContext;
+    }
+>;
 
 export function createDocumentStory<S, A extends Action>(
     Editor: (props: EditorProps<S, A>) => React.JSX.Element,
@@ -75,7 +89,7 @@ export function createDocumentStory<S, A extends Action>(
         },
     } satisfies Meta<typeof Editor>;
 
-    const CreateDocumentStory: StoryObj<typeof meta> = {
+    const CreateDocumentStory: DocumentStory<S, A> = {
         name: 'New document',
         args: {
             document: utils.createDocument(initialState),
@@ -85,5 +99,5 @@ export function createDocumentStory<S, A extends Action>(
         },
     };
 
-    return { meta, CreateDocumentStory };
+    return { meta, CreateDocumentStory } as const;
 }

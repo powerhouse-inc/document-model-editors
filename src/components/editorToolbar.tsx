@@ -8,7 +8,7 @@ interface EditorToolbarProps {
     right?: ReactElement<EditorToolbarComponent>[];
 }
 
-function EditorToolbar(props: EditorToolbarProps) {
+export function EditorToolbar(props: EditorToolbarProps) {
     const left = props.left || [],
         center = props.center || [],
         right = props.right || [];
@@ -27,5 +27,3 @@ function EditorToolbar(props: EditorToolbarProps) {
         </div>
     );
 }
-
-export default EditorToolbar;

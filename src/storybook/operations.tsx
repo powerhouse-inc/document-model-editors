@@ -1,6 +1,6 @@
-import { Document } from '@acaldas/document-model-libs/browser/document';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/manager-api';
+import { Document } from 'document-model/document';
 import React from 'react';
 
 const ADDON_ID = 'Operations';
@@ -55,7 +55,7 @@ addons.register(ADDON_ID, api => {
     addons.add(PANEL_ID, {
         type: types.PANEL,
         title: 'Operations',
-        render: ({ active, key }) => {
+        render: ({ active }) => {
             const [budgetStatement, setBudgetStatement] =
                 React.useState<Document>();
             React.useEffect(() => {
@@ -65,7 +65,7 @@ addons.register(ADDON_ID, api => {
             }, [channel]);
 
             return (
-                <AddonPanel active={active ?? false} key={key}>
+                <AddonPanel active={active ?? false}>
                     {budgetStatement && (
                         <OperationsPanel
                             operations={budgetStatement.operations}

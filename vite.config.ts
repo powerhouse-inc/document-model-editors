@@ -1,15 +1,12 @@
 import react from '@vitejs/plugin-react';
-import { readdirSync } from 'fs';
-import { resolve, sep } from 'path';
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-
-const files = readdirSync('./src/documents').map(folder =>
-    resolve('src', 'documents', `${folder}`)
-);
+import { libInjectCss } from 'vite-plugin-lib-inject-css';
 
 export default defineConfig(({ mode }) => ({
     plugins: [
+        libInjectCss(),
         react({ jsxRuntime: 'classic' }),
         dts({
             include: ['src'],
@@ -18,28 +15,15 @@ export default defineConfig(({ mode }) => ({
     build: {
         sourcemap: false,
         rollupOptions: {
-            external(id) {
-                return (
-                    ['react', 'react/jsx-runtime', 'zod'].includes(id) ||
-                    id.includes('@acaldas/document-model-libs')
-                );
-            },
-            output: {
-                entryFileNames: chunkInfo => {
-                    let module = chunkInfo.facadeModuleId.split(sep).at(-2);
-                    if (module === 'src') {
-                        module = 'index';
-                    }
-                    return `${module}.es.js`;
-                },
-                assetFileNames: `[name].[ext]`,
-            },
-        },
-        commonjsOptions: {
-            include: [],
+            external: [
+                'react',
+                'react/jsx-runtime',
+                'document-model/document',
+                /@storybook/,
+            ],
         },
         lib: {
-            entry: [resolve('src', 'index.ts'), ...files],
+            entry: [resolve('src', 'index.ts')],
             formats: ['es'],
         },
         minify: false,

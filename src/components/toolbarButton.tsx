@@ -4,7 +4,7 @@ interface ToolbarButtonProps {
     onClick?: () => void;
 }
 
-function ToolbarButton(props: PropsWithChildren<ToolbarButtonProps>) {
+export function ToolbarButton(props: PropsWithChildren<ToolbarButtonProps>) {
     const handleClick =
         props.onClick ||
         (() => {
@@ -21,5 +21,3 @@ function ToolbarButton(props: PropsWithChildren<ToolbarButtonProps>) {
         </div>
     );
 }
-
-export default ToolbarButton;
